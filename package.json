@@ -1,8 +1,8 @@
 {
-  "name": "faker-dao",
-  "version": "0.0.1",
-  "description": "MKR Governance Auction",
-  "productName": "FakerDAO",
+  "name": "eth-dashboard",
+  "version": "0.1.0",
+  "description": "Build your own ETH Dashboard",
+  "productName": "ETH Dashboard",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "mds <17163988+mds1@users.noreply.github.com>",

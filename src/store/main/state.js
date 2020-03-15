@@ -5,7 +5,7 @@ export default function () {
     data: {
       blockNumber: undefined,
       networkId: undefined,
-      daistats: undefined,
+      daiStats: {},
     },
   };
 }
