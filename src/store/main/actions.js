@@ -102,7 +102,9 @@ export function setContracts({ commit }, contracts) {
 
 // eslint-disable-next-line
 export async function poll({ commit }) {
+  // eslint-disable-next-line
   console.log('Polling blockchain for latest data...');
+
   // Configure multicall queries
   const p1 = multi.aggregate([
     // Start with all queries from https://daistats.com/

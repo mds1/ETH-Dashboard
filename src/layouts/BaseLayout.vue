@@ -6,11 +6,10 @@
       style="color: #000000; background-color: rgba(0,0,0,0)"
     >
       <div class="row justify-between items-center">
-        <div class="col">
+        <div class="col-auto">
           <div
             class="row justify-start items-center"
             style="cursor: pointer;"
-            @click="$router.push({ name: 'home' });"
           >
             <img
               alt="FakerDAO logo"
@@ -18,19 +17,14 @@
               src="statics/app-logo-128x128.png"
               style="max-width: 50px;"
             >
-            <div class="text-h5">
+            <div class="text-h5 dark-toggle">
               ETH Dashboard
             </div>
           </div>
         </div>
-        <div class="col-auto">
-          <div class="row justify-between">
-            <div class="text-caption q-mr-md">
-              Block: {{ blockNumber }}
-            </div>
-            <div>
-              <q-icon name="fas fa-moon" />
-            </div>
+        <div class="col-auto q-mr-md">
+          <div class="text-caption dark-toggle">
+            Block: {{ blockNumber }}
           </div>
           <div
             v-if="networkId !== '1'"
@@ -38,6 +32,31 @@
             style="color:red"
           >
             Connect to the mainnet to use this app!
+          </div>
+          <div
+            v-else
+            class="row justify-between q-mt-xs"
+          >
+            <q-icon
+              v-if="!$q.dark.isActive"
+              class="col-auto dark-toggle"
+              name="fas fa-moon"
+              style="cursor: pointer;"
+              @click="toggleNightMode()"
+            />
+            <q-icon
+              v-else
+              class="col-auto dark-toggle"
+              name="fas fa-sun"
+              style="cursor: pointer;"
+              @click="toggleNightMode()"
+            />
+            <q-icon
+              class="col-auto dark-toggle"
+              name="fas fa-cog"
+              style="cursor: pointer;"
+              @click="showSettings()"
+            />
           </div>
         </div>
       </div>
@@ -52,7 +71,7 @@
       class="q-mt-xl"
       style="color: #000000; background-color: rgba(0,0,0,0)"
     >
-      <div class="row justify-center items-center q-my-xl">
+      <div class="row justify-center items-center dark-toggle q-my-xl">
         <div
           class="text-caption"
           style="max-width: 800px;"
@@ -86,6 +105,16 @@ export default {
       blockNumber: (state) => state.main.data.blockNumber,
       networkId: (state) => state.main.data.networkId,
     }),
+  },
+
+  methods: {
+    toggleNightMode() {
+      this.$q.dark.set(!this.$q.dark.isActive);
+    },
+
+    showSettings() {
+      alert('Settings not yet implemented');
+    },
   },
 };
 </script>
