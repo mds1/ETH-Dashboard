@@ -1,14 +1,11 @@
 <template>
   <q-page padding>
     <!-- MAIN CONTENT -->
-    <div class="row justify-center">
-      Stuff
-    </div>
-    <div class="row justify-center">
+    <div class="row justify-center q-mt-xl">
       <div
         v-for="component in componentsToShow"
         :key="component.id"
-        class="col-auto"
+        class="col-auto q-mx-md"
       >
         <component :is="component.componentName" />
       </div>
@@ -20,12 +17,14 @@
 import { mapState } from 'vuex';
 import { componentList } from 'src/utils/components';
 import DaiStatsTotalDai from 'components/DaiStatsTotalDai';
+import DaiStatsDaiPrice from 'components/DaiStatsDaiPrice';
 
 export default {
   name: 'HomePage',
 
   components: {
     DaiStatsTotalDai,
+    DaiStatsDaiPrice,
   },
 
   data() {

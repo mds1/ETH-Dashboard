@@ -9,13 +9,13 @@
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(totalDai, false, 2, 2) }}
+          {{ formatCurrency(daiPrice, true, 2, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          Total Dai
+          Dai Price
         </div>
       </q-card-section>
     </q-card>
@@ -27,13 +27,13 @@ import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
 
 export default {
-  name: 'DaiStatsTotalDai',
+  name: 'DaiStatsDaiPrice',
 
   mixins: [mixinHelpers],
 
   computed: {
     ...mapState({
-      totalDai: (state) => state.main.data.daiStats.debt,
+      daiPrice: (state) => state.main.data.daiStats.daiPrice,
     }),
   },
 };
