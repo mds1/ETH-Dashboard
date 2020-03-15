@@ -1,5 +1,74 @@
 <template>
   <q-layout view="hhh Lpr fff">
+    <!-- COMPONENT SELECTION DIALOG -->
+    <q-dialog
+      v-model="showComponentSelection"
+      @hide="saveComponents()"
+    >
+      <q-card class="q-px-md q-py-md">
+        <!-- Title and Description-->
+        <q-card-section class="text-center">
+          <h4>
+            Select Your Stats
+          </h4>
+          <div class="text-caption q-mt-md">
+            Below is a list of all available stats. Please select the ones
+            you would like to view. Your selection will be saved for
+            your next visit.
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-list>
+            <!-- Rendering a <label> tag (notice tag="label") so QCheckboxes
+            will respond to clicks on QItems to change Toggle state. -->
+            <div
+              v-for="component in componentList"
+              :key="component.id"
+            >
+              <h5
+                v-if="component.isFirstInCategory"
+                class="text-primary"
+              >
+                {{ component.category }}
+              </h5>
+              <q-item tag="label">
+                <q-item-section
+                  avatar
+                  top
+                >
+                  <q-checkbox
+                    v-model="selectedComponents[component.id]"
+                    :val="true"
+                    color="primary"
+                  />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label style="font-size: 1.1em">
+                    {{ component.name }}
+                  </q-item-label>
+                  <q-item-label style="opacity:0.7;">
+                    {{ component.description }}. Source: {{ component.source }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </div>
+          </q-list>
+        </q-card-section>
+
+        <!-- Close dialog -->
+        <q-card-actions align="right">
+          <q-btn
+            v-close-popup
+            color="primary"
+            flat
+            label="Ok"
+            @click="saveComponents()"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <!-- HEADER -->
     <q-header
       class="q-mx-md q-mt-md"
@@ -12,7 +81,7 @@
             style="cursor: pointer;"
           >
             <img
-              alt="FakerDAO logo"
+              alt="Ethereum logo"
               class="q-mx-md"
               src="statics/app-logo-128x128.png"
               style="max-width: 50px;"
@@ -35,7 +104,7 @@
           </div>
           <div
             v-else
-            class="row justify-between q-mt-xs"
+            class="row justify-end q-mt-xs"
           >
             <q-icon
               v-if="!$q.dark.isActive"
@@ -52,7 +121,7 @@
               @click="toggleNightMode()"
             />
             <q-icon
-              class="col-auto dark-toggle"
+              class="col-auto dark-toggle q-ml-lg"
               name="fas fa-cog"
               style="cursor: pointer;"
               @click="showSettings()"
@@ -96,9 +165,18 @@
 
 <script>
 import { mapState } from 'vuex';
+import { componentList } from 'src/utils/components';
 
 export default {
   name: 'BaseLayout',
+
+  data() {
+    return {
+      showComponentSelection: false,
+      componentList,
+      selectedComponents: [],
+    };
+  },
 
   computed: {
     ...mapState({
@@ -107,13 +185,33 @@ export default {
     }),
   },
 
+  created() {
+    // Check local storage for a dark mode setting
+    const isDark = this.$q.localStorage.getItem('isDark');
+    this.$q.dark.set(isDark);
+    // Initialize array of selected components
+    this.selectedComponents = (new Array(this.componentList.length)).fill(false);
+    // Check local storage for selected components
+    this.selectedComponents = this.$q.localStorage.getItem('selectedComponents');
+    this.$store.dispatch('main/setSelectedComponents', this.selectedComponents);
+  },
+
   methods: {
     toggleNightMode() {
-      this.$q.dark.set(!this.$q.dark.isActive);
+      const isDark = !this.$q.dark.isActive;
+      this.$q.dark.set(isDark);
+      this.$q.localStorage.set('isDark', isDark);
     },
 
     showSettings() {
-      alert('Settings not yet implemented');
+      this.showComponentSelection = true;
+    },
+
+    saveComponents() {
+      // Save to local storage
+      this.$q.localStorage.set('selectedComponents', this.selectedComponents);
+      // Update state
+      this.$store.dispatch('main/setSelectedComponents', this.selectedComponents);
     },
   },
 };

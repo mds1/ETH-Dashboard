@@ -100,6 +100,10 @@ export function setContracts({ commit }, contracts) {
   commit('setContracts', contracts);
 }
 
+export function setSelectedComponents({ commit }, components) {
+  commit('setSelectedComponents', components);
+}
+
 // eslint-disable-next-line
 export async function poll({ commit }) {
   // eslint-disable-next-line

@@ -22,19 +22,9 @@ export default async ({ store /* app, router, Vue, ... */ }) => {
   };
 
   // something to do
-  // const fakerContract = createContractInstance('faker', addresses.faker);
   const multicall = createContractInstance('Multicall', addresses.MULTICALL);
-  // const wethContract = createContractInstance('weth', addresses.weth);
-  // const daiContract = createContractInstance('dai', addresses.dai);
-  // const makerContract = createContractInstance('maker', addresses.maker);
-  // const chiefContract = createContractInstance('chief', addresses.chief);
 
   store.dispatch('main/setContracts', {
-    // fakerContract,
     multicall,
-    // wethContract,
-    // daiContract,
-    // makerContract,
-    // chiefContract,
   });
 };

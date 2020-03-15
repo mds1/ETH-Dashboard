@@ -34,9 +34,5 @@ export default {
       return this.formatCurrency(this.totalDai, false, 2, 2);
     },
   },
-
-  data() {
-    return {};
-  },
 };
 </script>
