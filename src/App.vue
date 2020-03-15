@@ -10,9 +10,9 @@ export default {
 
   created() {
     // Every few seconds, check APIs for updates
-    this.$store.dispatch('auth/poll');
+    this.$store.dispatch('main/poll');
     setInterval(() => {
-      this.$store.dispatch('auth/poll');
+      this.$store.dispatch('main/poll');
     }, 7000);
   },
 };

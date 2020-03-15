@@ -26,7 +26,7 @@
         <div class="col-auto">
           <div class="row justify-between">
             <div class="text-caption q-mr-md">
-              Block: TBD
+              Block: {{ blockNumber }}
             </div>
             <div>
               <q-icon name="fas fa-moon" />
@@ -83,12 +83,8 @@ export default {
 
   computed: {
     ...mapState({
-      networkId: (state) => {
-        if (state.auth && state.auth.provider && state.auth.provider.provider) {
-          return state.auth.provider.provider.networkVersion;
-        }
-        return undefined;
-      },
+      blockNumber: (state) => state.main.data.blockNumber,
+      networkId: (state) => state.main.data.networkId,
     }),
   },
 };
