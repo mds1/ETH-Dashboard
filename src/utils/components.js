@@ -18,4 +18,31 @@ export const componentList = [
     name: 'Dai Price',
     source: 'Maker contracts',
   },
+  {
+    category: 'Dai and MakerDAO Stats',
+    componentName: 'DaiStatsBatPrice',
+    description: 'Current price of BAT',
+    id: 2,
+    isFirstInCategory: false, // used for displaying headers
+    name: 'BAT Price',
+    source: 'Maker contracts',
+  },
+  {
+    category: 'Dai and MakerDAO Stats',
+    componentName: 'DaiStatsEthPrice',
+    description: 'Current price of Ether',
+    id: 3,
+    isFirstInCategory: false, // used for displaying headers
+    name: 'Ether Price',
+    source: 'Maker contracts',
+  },
+  {
+    category: 'Dai and MakerDAO Stats',
+    componentName: 'DaiStatsMkrPrice',
+    description: 'Current price of Maker',
+    id: 4,
+    isFirstInCategory: false, // used for displaying headers
+    name: 'Maker Price',
+    source: 'Maker contracts',
+  },
 ];
