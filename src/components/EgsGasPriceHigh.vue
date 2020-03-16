@@ -58,6 +58,7 @@ export default {
     cost() {
       if (!this.gasPrices) return 0;
       const val = Math.ceil(this.gasPrice * 21000 * this.ethPrice);
+      if (Number.isNaN(val)) return 0;
       return ethers.utils.formatUnits(val, 9);
     },
   },

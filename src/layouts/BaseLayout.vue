@@ -150,13 +150,7 @@
             href="https://twitter.com/msolomon44"
             target="_blank"
             class="hyperlink"
-          >Matt Solomon</a>
-          of
-          <a
-            href="https://beta.floatify.net"
-            target="_blank"
-            class="hyperlink"
-          >Floatify</a>.
+          >Matt Solomon</a>.
           <br><br>
           Thanks to
           <a

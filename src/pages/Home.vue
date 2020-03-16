@@ -1,7 +1,22 @@
 <template>
   <q-page padding>
     <!-- MAIN CONTENT -->
-    <div class="row justify-center q-mt-lg">
+    <div
+      v-if="!blockNumber"
+      class="text-center q-mt-xl"
+    >
+      <q-spinner
+        color="primary"
+        size="4em"
+      />
+      <div class="q-mt-lg">
+        Loading data...
+      </div>
+    </div>
+    <div
+      v-else
+      class="row justify-center q-mt-lg"
+    >
       <div
         v-for="component in componentsToShow"
         :key="component.id"
@@ -70,6 +85,7 @@ export default {
     ...mapState({
       // Array of booleans as to whether or not to show each component
       selectedComponents: (state) => state.main.selectedComponents,
+      blockNumber: (state) => state.main.data.blockNumber,
     }),
 
     componentsToShow() {
