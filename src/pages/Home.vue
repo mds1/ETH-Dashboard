@@ -29,6 +29,10 @@ import EgsGasPriceHighest from 'components/EgsGasPriceHighest';
 import EgsGasPriceHigh from 'components/EgsGasPriceHigh';
 import EgsGasPriceMedium from 'components/EgsGasPriceMedium';
 import EgsGasPriceLow from 'components/EgsGasPriceLow';
+import CompoundCdaiBorrow from 'components/CompoundCdaiBorrow';
+import CompoundCdaiSupply from 'components/CompoundCdaiSupply';
+import CompoundCusdcBorrow from 'components/CompoundCusdcBorrow';
+import CompoundCusdcSupply from 'components/CompoundCusdcSupply';
 
 export default {
   name: 'HomePage',
@@ -47,6 +51,10 @@ export default {
     EgsGasPriceHigh,
     EgsGasPriceMedium,
     EgsGasPriceLow,
+    CompoundCdaiBorrow,
+    CompoundCdaiSupply,
+    CompoundCusdcBorrow,
+    CompoundCusdcSupply,
   },
 
   data() {

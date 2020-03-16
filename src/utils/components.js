@@ -81,6 +81,7 @@ export const componentList = [
     name: 'System Surplus',
     source: 'Maker contracts',
   },
+  // ETH Gas Station
   {
     category: 'Ethereum Network Stats',
     componentName: 'EgsGasPriceHighest',
@@ -116,5 +117,42 @@ export const componentList = [
     isFirstInCategory: false,
     name: 'Safe Low Gas Price',
     source: 'ETH Gas Station API',
+  },
+  // Compound
+  {
+    category: 'Compound Stats',
+    componentName: 'CompoundCdaiBorrow',
+    description: 'cDAI borrow rate and total borrowed',
+    id: 13,
+    isFirstInCategory: true,
+    name: 'cDAI Borrow Stats',
+    source: 'Compound contracts',
+  },
+  {
+    category: 'Compound Stats',
+    componentName: 'CompoundCdaiSupply',
+    description: 'cDAI supply rate and total supplied',
+    id: 14,
+    isFirstInCategory: false,
+    name: 'cDAI Supply Stats',
+    source: 'Compound contracts',
+  },
+  {
+    category: 'Compound Stats',
+    componentName: 'CompoundCusdcBorrow',
+    description: 'cUSDC borrow rate and total borrowed',
+    id: 15,
+    isFirstInCategory: false,
+    name: 'cUSDC Borrow Stats',
+    source: 'Compound contracts',
+  },
+  {
+    category: 'Compound Stats',
+    componentName: 'CompoundCusdcSupply',
+    description: 'cUSDC supply rate and total supplied',
+    id: 16,
+    isFirstInCategory: false,
+    name: 'cUSDC Supply Stats',
+    source: 'Compound contracts',
   },
 ];

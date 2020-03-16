@@ -20,6 +20,10 @@ export default function () {
         fastWait: undefined,
         fastestWait: undefined,
       },
+      compoundStats: {
+        cDAI: { },
+        cUSDC: { },
+      },
     },
   };
 }

@@ -69,6 +69,18 @@ const getGasPrices = async () => {
   return json;
 };
 
+
+const compoundBlockTime = 14.5; // assumed block time, seconds
+const compoundRateToApy = (rate) => {
+  // rate must be an ethers.js BigNumber
+  // const val = utils.formatEther(rate.mul(utils.bigNumberify('2102400')), 18);
+  // return val;
+  const parsedRate = Number(utils.formatUnits(rate, 18));
+  const blocksPerYear = (365 * 24 * 60 * 60) / compoundBlockTime;
+  const val = (1 + parsedRate) ** blocksPerYear - 1;
+  return val * 100;
+};
+
 /**
  * @notice Returns ethers.js contract instance
  */
@@ -103,11 +115,11 @@ const batIlkBytes = utils.formatBytes32String('BAT-A');
 const saiIlkBytes = utils.formatBytes32String('SAI');
 
 // const cBAT = createContractInstance(addresses.cBAT, 'cBAT');
-// const cDAI = createContractInstance(addresses.cDAI, 'cDAI');
+const cDAI = createContractInstance(addresses.cDAI, 'cDAI');
 // const cETH = createContractInstance(addresses.cETH, 'cETH');
 // const cREP = createContractInstance(addresses.cREP, 'cREP');
 // const cSAI = createContractInstance(addresses.cSAI, 'cSAI');
-// const cUSDC = createContractInstance(addresses.cUSDC, 'cUSDC');
+const cUSDC = createContractInstance(addresses.cUSDC, 'cUSDC');
 // const cWBTC = createContractInstance(addresses.cWBTC, 'cWBTC');
 // const cZRX = createContractInstance(addresses.cZRX, 'cZRX');
 
@@ -172,8 +184,20 @@ export async function poll({ commit }) {
     [addresses.MCD_FLAP, flap.interface.functions.kicks.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.tax.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.fee.encode([])],
-    // Compound rates
-    // [addresses.cDAI, cdai.interfa]
+    // Compound data, cDAI
+    [addresses.cDAI, cDAI.interface.functions.borrowRatePerBlock.encode([])],
+    [addresses.cDAI, cDAI.interface.functions.supplyRatePerBlock.encode([])],
+    [addresses.cDAI, cDAI.interface.functions.exchangeRateCurrent.encode([])],
+    [addresses.cDAI, cDAI.interface.functions.totalSupply.encode([])],
+    [addresses.cDAI, cDAI.interface.functions.totalBorrowsCurrent.encode([])],
+    [addresses.cDAI, cDAI.interface.functions.totalReserves.encode([])],
+    // Compound data, cUSDC
+    [addresses.cUSDC, cUSDC.interface.functions.borrowRatePerBlock.encode([])],
+    [addresses.cUSDC, cUSDC.interface.functions.supplyRatePerBlock.encode([])],
+    [addresses.cUSDC, cUSDC.interface.functions.exchangeRateCurrent.encode([])],
+    [addresses.cUSDC, cUSDC.interface.functions.totalSupply.encode([])],
+    [addresses.cUSDC, cUSDC.interface.functions.totalBorrowsCurrent.encode([])],
+    [addresses.cUSDC, cUSDC.interface.functions.totalReserves.encode([])],
   ]);
   const p2 = etherscanEthSupply();
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
@@ -233,6 +257,41 @@ export async function poll({ commit }) {
   const saiTubTax = calcFee(saiTub.interface.functions.tax.decode(res[37])[0]);
   const saiTubFee = calcFee(saiTub.interface.functions.fee.decode(res[38])[0]);
   const scdFee = saiTubTax + saiTubFee;
+  // End daistats.com data
+  // Begin our own data
+  // Compound data, cDAI
+  const cDaiBorrowRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[39])[0];
+  const cDaiSupplyRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[40])[0];
+  const cDaiExchangeRate = cDAI.interface.functions.exchangeRateCurrent.decode(res[41])[0];
+  const cDaiTotalSupply = cDAI.interface.functions.totalSupply.decode(res[42])[0];
+  const cDaiTotalBorrows = cDAI.interface.functions.totalBorrowsCurrent.decode(res[43])[0];
+  const cDaiTotalReserves = cDAI.interface.functions.totalReserves.decode(res[44])[0];
+  // Compound data, cUSDC
+  const cUsdcBorrowRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[45])[0];
+  const cUsdcSupplyRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[46])[0];
+  const cUsdcExchangeRate = cUSDC.interface.functions.exchangeRateCurrent.decode(res[47])[0];
+  const cUsdcTotalSupply = cUSDC.interface.functions.totalSupply.decode(res[48])[0];
+  const cUsdcTotalBorrows = cUSDC.interface.functions.totalBorrowsCurrent.decode(res[49])[0];
+  const cUsdcTotalReserves = cUSDC.interface.functions.totalReserves.decode(res[50])[0];
+
+  const compoundStats = {
+    cDAI: {
+      borrowRate: compoundRateToApy(cDaiBorrowRate),
+      supplyRate: compoundRateToApy(cDaiSupplyRate),
+      exchangeRate: cDaiExchangeRate,
+      totalSupply: utils.formatUnits(cDaiTotalSupply.mul(cDaiExchangeRate), 36),
+      totalBorrows: utils.formatUnits(cDaiTotalBorrows, 18),
+      totalReserves: utils.formatUnits(cDaiTotalReserves, 18),
+    },
+    cUSDC: {
+      borrowRate: compoundRateToApy(cUsdcBorrowRate),
+      supplyRate: compoundRateToApy(cUsdcSupplyRate),
+      exchangeRate: cUsdcExchangeRate,
+      totalSupply: utils.formatUnits(cUsdcTotalSupply.mul(cUsdcExchangeRate), 24),
+      totalBorrows: utils.formatUnits(cUsdcTotalBorrows, 6),
+      totalReserves: utils.formatUnits(cUsdcTotalReserves, 6),
+    },
+  };
 
   const daiStats = {
     Line: utils.formatUnits(res[0], 45),
@@ -316,11 +375,13 @@ export async function poll({ commit }) {
     daiBrewing: utils.formatUnits(daiBrewing, 45),
   };
 
+
   const data = {
     networkId: 1,
     blockNumber: blockNumber.toString(),
     daiStats,
     egsGasPrices,
+    compoundStats,
   };
 
   commit('setData', data);
