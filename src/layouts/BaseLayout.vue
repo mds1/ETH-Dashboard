@@ -76,6 +76,7 @@
     >
       <div class="row justify-between items-center">
         <div class="col-auto">
+          <!-- LOGO AND TITLE -->
           <div
             class="row justify-start items-center"
             style="cursor: pointer;"
@@ -91,17 +92,17 @@
             </div>
           </div>
         </div>
+        <!-- AUTO-UPDATE NOTICE -->
+        <div class="col-auto dark-toggle text-center text-caption text-italic">
+          Stats will automatically update each block. Use the icons to the right
+          to show and hide components.
+        </div>
+        <!-- BLOCK NUMBER AND SETTINGS -->
         <div class="col-auto q-mr-md">
           <div class="text-caption dark-toggle">
             Block: {{ blockNumber }}
           </div>
-          <!-- <div
-            v-if="networkId !== '1'"
-            class="text-bold"
-            style="color:red"
-          >
-            Connect to the mainnet to use this app!
-          </div> -->
+
           <div
             class="row justify-end q-mt-xs"
           >
