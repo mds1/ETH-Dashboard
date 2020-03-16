@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <q-card class="main-card">
+  <div class="full-height">
+    <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
           Source: {{ 'ETH Gas Station API' }}
