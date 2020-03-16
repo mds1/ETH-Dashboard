@@ -8,5 +8,6 @@ export default function () {
       networkId: undefined,
       daiStats: {},
     },
+    gasPrices: {},
   };
 }

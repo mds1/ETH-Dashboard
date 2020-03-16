@@ -6,8 +6,8 @@ const addresses = require('src/addresses.json');
 const { utils } = ethers;
 const RAY = utils.bigNumberify('1000000000000000000000000000');
 
-// Define helper functions and contract instance ===================================================
-// The bulk of this section is from the https://daistats.com/ source code
+// =================================================================================================
+// Start helper functions pulled from https://daistats.com/ source code
 
 const POSITION_NXT = 4;
 
@@ -61,13 +61,24 @@ const getMKRAnnualBurn = (ethIlk, ethFee, batIlk, batFee, saiSupply, scdFee, sav
   return mkrAnnualBurn;
 };
 
+// End helper functions pulled from https://daistats.com/ source code
+// =================================================================================================
 
+const getGasPrices = async () => {
+  const json = await jsonFetch('https://ethgasstation.info/json/ethgasAPI.json');
+  return json;
+};
+
+/**
+ * @notice Returns ethers.js contract instance
+ */
 const createContractInstance = (address, name) => {
   // eslint-disable-next-line
   const abi = require(`src/abi/${name}.json`);
   return new ethers.Contract(address, abi, provider);
 };
 
+// Build contract instances (from https://daistats.com/)
 const multi = createContractInstance(addresses.MULTICALL, 'Multicall');
 const vat = createContractInstance(addresses.MCD_VAT, 'Vat');
 const pot = createContractInstance(addresses.MCD_POT, 'Pot');
@@ -157,11 +168,12 @@ export async function poll({ commit }) {
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
   const p4 = getOSMPrice(addresses.PIP_BAT, POSITION_NXT);
   const p5 = getMarketPrices();
+  const p6 = getGasPrices();
 
   // Send promises
   const [
-    [blockNumber, res], ethSupply, ethPriceNxt, batPriceNxt, marketPrices,
-  ] = await Promise.all([p1, p2, p3, p4, p5]);
+    [blockNumber, res], ethSupply, ethPriceNxt, batPriceNxt, marketPrices, gasPrices,
+  ] = await Promise.all([p1, p2, p3, p4, p5, p6]);
 
   const ethIlk = vat.interface.functions.ilks.decode(res[2]);
   const batIlk = vat.interface.functions.ilks.decode(res[3]);
@@ -297,6 +309,7 @@ export async function poll({ commit }) {
     networkId: window.ethereum.networkVersion,
     blockNumber: blockNumber.toString(),
     daiStats,
+    gasPrices,
   };
 
   commit('setData', data);

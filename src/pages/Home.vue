@@ -25,6 +25,10 @@ import DaiStatsBatSf from 'components/DaiStatsBatSf';
 import DaiStatsEthSf from 'components/DaiStatsEthSf';
 import DaiStatsDsr from 'components/DaiStatsDsr';
 import DaiStatsSurplus from 'components/DaiStatsSurplus';
+import EgsGasPriceHighest from 'components/EgsGasPriceHighest';
+import EgsGasPriceHigh from 'components/EgsGasPriceHigh';
+import EgsGasPriceMedium from 'components/EgsGasPriceMedium';
+import EgsGasPriceLow from 'components/EgsGasPriceLow';
 
 export default {
   name: 'HomePage',
@@ -39,6 +43,10 @@ export default {
     DaiStatsEthSf,
     DaiStatsDsr,
     DaiStatsSurplus,
+    EgsGasPriceHighest,
+    EgsGasPriceHigh,
+    EgsGasPriceMedium,
+    EgsGasPriceLow,
   },
 
   data() {

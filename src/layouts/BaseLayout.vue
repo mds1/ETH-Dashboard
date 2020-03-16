@@ -19,7 +19,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-list>
+          <q-list style="margin-top: -1em;">
             <!-- Rendering a <label> tag (notice tag="label") so QCheckboxes
             will respond to clicks on QItems to change Toggle state. -->
             <div
@@ -28,7 +28,7 @@
             >
               <h5
                 v-if="component.isFirstInCategory"
-                class="text-primary"
+                class="text-primary q-mt-md"
               >
                 {{ component.category }}
               </h5>
