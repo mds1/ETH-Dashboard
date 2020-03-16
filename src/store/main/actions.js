@@ -172,7 +172,7 @@ export async function poll({ commit }) {
 
   // Send promises
   const [
-    [blockNumber, res], ethSupply, ethPriceNxt, batPriceNxt, marketPrices, gasPrices,
+    [blockNumber, res], ethSupply, ethPriceNxt, batPriceNxt, marketPrices, egsGasPrices,
   ] = await Promise.all([p1, p2, p3, p4, p5, p6]);
 
   const ethIlk = vat.interface.functions.ilks.decode(res[2]);
@@ -306,10 +306,10 @@ export async function poll({ commit }) {
   };
 
   const data = {
-    networkId: window.ethereum.networkVersion,
+    networkId: 1,
     blockNumber: blockNumber.toString(),
     daiStats,
-    gasPrices,
+    egsGasPrices,
   };
 
   commit('setData', data);

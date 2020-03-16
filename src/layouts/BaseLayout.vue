@@ -18,7 +18,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="componentList.length > 0">
           <q-list style="margin-top: -1em;">
             <!-- Rendering a <label> tag (notice tag="label") so QCheckboxes
             will respond to clicks on QItems to change Toggle state. -->
@@ -95,15 +95,14 @@
           <div class="text-caption dark-toggle">
             Block: {{ blockNumber }}
           </div>
-          <div
+          <!-- <div
             v-if="networkId !== '1'"
             class="text-bold"
             style="color:red"
           >
             Connect to the mainnet to use this app!
-          </div>
+          </div> -->
           <div
-            v-else
             class="row justify-end q-mt-xs"
           >
             <q-icon

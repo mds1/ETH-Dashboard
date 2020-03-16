@@ -43,17 +43,20 @@ export default {
 
   computed: {
     ...mapState({
-      gasPrices: (state) => state.main.data.gasPrices,
+      gasPrices: (state) => state.main.data.egsGasPrices,
       ethPrice: (state) => state.main.data.daiStats.ethPrice,
     }),
 
     gasPrice() {
+      if (!this.gasPrices) return 0;
       return this.gasPrices.average / 10;
     },
     time() {
+      if (!this.gasPrices) return 0;
       return this.gasPrices.avgWait;
     },
     cost() {
+      if (!this.gasPrices) return 0;
       const val = Math.ceil(this.gasPrice * 21000 * this.ethPrice);
       return ethers.utils.formatUnits(val, 9);
     },

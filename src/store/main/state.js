@@ -7,7 +7,19 @@ export default function () {
       blockNumber: undefined,
       networkId: undefined,
       daiStats: {},
+      egsGasPrices: {
+        fast: undefined,
+        fastest: undefined,
+        safeLow: undefined,
+        average: undefined,
+        block_time: undefined,
+        blockNum: undefined,
+        speed: undefined,
+        safeLowWait: undefined,
+        avgWait: undefined,
+        fastWait: undefined,
+        fastestWait: undefined,
+      },
     },
-    gasPrices: {},
   };
 }
