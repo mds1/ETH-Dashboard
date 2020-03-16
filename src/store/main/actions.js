@@ -102,6 +102,15 @@ const ethIlkBytes = utils.formatBytes32String('ETH-A');
 const batIlkBytes = utils.formatBytes32String('BAT-A');
 const saiIlkBytes = utils.formatBytes32String('SAI');
 
+// const cBAT = createContractInstance(addresses.cBAT, 'cBAT');
+// const cDAI = createContractInstance(addresses.cDAI, 'cDAI');
+// const cETH = createContractInstance(addresses.cETH, 'cETH');
+// const cREP = createContractInstance(addresses.cREP, 'cREP');
+// const cSAI = createContractInstance(addresses.cSAI, 'cSAI');
+// const cUSDC = createContractInstance(addresses.cUSDC, 'cUSDC');
+// const cWBTC = createContractInstance(addresses.cWBTC, 'cWBTC');
+// const cZRX = createContractInstance(addresses.cZRX, 'cZRX');
+
 
 export function setProvider({ commit }, providerUsed) {
   commit('setProvider', providerUsed);
@@ -163,6 +172,8 @@ export async function poll({ commit }) {
     [addresses.MCD_FLAP, flap.interface.functions.kicks.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.tax.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.fee.encode([])],
+    // Compound rates
+    // [addresses.cDAI, cdai.interfa]
   ]);
   const p2 = etherscanEthSupply();
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
