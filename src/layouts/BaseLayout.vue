@@ -93,9 +93,13 @@
           </div>
         </div>
         <!-- AUTO-UPDATE NOTICE -->
-        <div class="col-auto dark-toggle text-center text-caption text-italic">
-          Stats will automatically update each block. Use the icons to the right
-          to show and hide components.
+        <div
+          class="col-auto dark-toggle text-center text-caption text-italic"
+          style="max-width:625px"
+        >
+          Data automatically updates each block. Use the icons to the right
+          to configure settings. Components can be dragged to change the order.
+          Visible components will be saved between visits, but order changes will not.
         </div>
         <!-- BLOCK NUMBER AND SETTINGS -->
         <div class="col-auto q-mr-md">

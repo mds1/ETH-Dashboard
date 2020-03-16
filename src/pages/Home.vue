@@ -13,9 +13,13 @@
         Loading data...
       </div>
     </div>
-    <div
+    <draggable
       v-else
+      v-model="componentsToShow"
       class="row justify-center q-mt-lg"
+      group="components"
+      @start="drag=true"
+      @end="drag=false"
     >
       <div
         v-for="component in componentsToShow"
@@ -24,12 +28,13 @@
       >
         <component :is="component.componentName" />
       </div>
-    </div>
+    </draggable>
   </q-page>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import draggable from 'vuedraggable';
 import { componentList } from 'src/utils/components';
 import DaiStatsTotalDai from 'components/DaiStatsTotalDai';
 import DaiStatsBatPrice from 'components/DaiStatsBatPrice';
@@ -53,6 +58,7 @@ export default {
   name: 'HomePage',
 
   components: {
+    draggable,
     DaiStatsTotalDai,
     DaiStatsBatPrice,
     DaiStatsDaiPrice,
@@ -78,6 +84,7 @@ export default {
       showMkrDialog: false,
       showWethDialog: false,
       componentList,
+      componentOrder: undefined,
     };
   },
 
