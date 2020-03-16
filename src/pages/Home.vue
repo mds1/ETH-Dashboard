@@ -21,6 +21,10 @@ import DaiStatsBatPrice from 'components/DaiStatsBatPrice';
 import DaiStatsDaiPrice from 'components/DaiStatsDaiPrice';
 import DaiStatsEthPrice from 'components/DaiStatsEthPrice';
 import DaiStatsMkrPrice from 'components/DaiStatsMkrPrice';
+import DaiStatsBatSf from 'components/DaiStatsBatSf';
+import DaiStatsEthSf from 'components/DaiStatsEthSf';
+import DaiStatsDsr from 'components/DaiStatsDsr';
+import DaiStatsSurplus from 'components/DaiStatsSurplus';
 
 export default {
   name: 'HomePage',
@@ -31,6 +35,10 @@ export default {
     DaiStatsDaiPrice,
     DaiStatsEthPrice,
     DaiStatsMkrPrice,
+    DaiStatsBatSf,
+    DaiStatsEthSf,
+    DaiStatsDsr,
+    DaiStatsSurplus,
   },
 
   data() {

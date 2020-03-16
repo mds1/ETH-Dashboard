@@ -34,9 +34,6 @@ export default {
       if (isNegative && showDollarSign) {
         return `-$${Math.abs(dollarAmount)}`;
       }
-      if (isNegative) {
-        return `-${Math.abs(dollarAmount)}`;
-      }
       if (showDollarSign) {
         return `$${dollarAmount}`;
       }
@@ -57,7 +54,7 @@ export default {
       }
 
       // Convert to a number if given a string
-      const numberValue = typeof value === 'string' ? Number(value) * 100 : value * 100;
+      const numberValue = typeof value === 'string' ? Number(value) : value;
       if (
         numberValue === undefined
         || numberValue === null
