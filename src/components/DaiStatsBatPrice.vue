@@ -9,7 +9,7 @@
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(batPrice, true, 2, 2) }}
+          {{ formatCurrency(batPrice, true, 2, 4) }}
         </div>
       </q-card-section>
 
@@ -21,6 +21,12 @@
         >
         <div class="col-auto main-header">
           BAT Price
+        </div>
+      </q-card-section>
+
+      <q-card-section class="main-card-section">
+        <div class="text-caption text-center">
+          Next oracle price: {{ formatCurrency(batPriceNxt, true, 2, 4) }}
         </div>
       </q-card-section>
     </q-card>
@@ -39,6 +45,7 @@ export default {
   computed: {
     ...mapState({
       batPrice: (state) => state.main.data.daiStats.batPrice,
+      batPriceNxt: (state) => state.main.data.daiStats.batPriceNxt,
     }),
   },
 };

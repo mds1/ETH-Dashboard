@@ -3,7 +3,7 @@
     <q-card class="main-card">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ 'CoinGecko API' }}
         </div>
       </q-card-section>
 

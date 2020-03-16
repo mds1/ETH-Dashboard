@@ -16,7 +16,7 @@ export const componentList = [
     id: 1,
     isFirstInCategory: false,
     name: 'Dai Price',
-    source: 'Maker contracts',
+    source: 'CoinGecko API',
   },
   {
     category: 'Dai and MakerDAO Stats',
@@ -43,7 +43,7 @@ export const componentList = [
     id: 4,
     isFirstInCategory: false,
     name: 'Maker Price',
-    source: 'Maker contracts',
+    source: 'CoinGecko API',
   },
   {
     category: 'Dai and MakerDAO Stats',

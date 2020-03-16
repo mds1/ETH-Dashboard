@@ -23,6 +23,12 @@
           Ether Price
         </div>
       </q-card-section>
+
+      <q-card-section class="main-card-section">
+        <div class="text-caption text-center">
+          Next oracle price: {{ formatCurrency(ethPriceNxt, true, 2, 2) }}
+        </div>
+      </q-card-section>
     </q-card>
   </div>
 </template>
@@ -39,6 +45,7 @@ export default {
   computed: {
     ...mapState({
       ethPrice: (state) => state.main.data.daiStats.ethPrice,
+      ethPriceNxt: (state) => state.main.data.daiStats.ethPriceNxt,
     }),
   },
 };
