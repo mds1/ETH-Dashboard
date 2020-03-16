@@ -84,7 +84,7 @@ export const componentList = [
   {
     category: 'Ethereum Network Stats',
     componentName: 'EgsGasPriceHighest',
-    description: 'Gas price for fastest transactions, pulled from ETH Gas Station',
+    description: 'Gas price for fastest transactions',
     id: 9,
     isFirstInCategory: true,
     name: 'Fastest Gas Price',
@@ -93,7 +93,7 @@ export const componentList = [
   {
     category: 'Ethereum Network Stats',
     componentName: 'EgsGasPriceHigh',
-    description: 'Gas price for fast transactions, pulled from ETH Gas Station',
+    description: 'Gas price for fast transactions',
     id: 10,
     isFirstInCategory: false,
     name: 'Fast Gas Price',
@@ -102,7 +102,7 @@ export const componentList = [
   {
     category: 'Ethereum Network Stats',
     componentName: 'EgsGasPriceMedium',
-    description: 'Gas price for average transactions, pulled from ETH Gas Station',
+    description: 'Gas price for average transactions',
     id: 11,
     isFirstInCategory: false,
     name: 'Average Gas Price',
@@ -111,7 +111,7 @@ export const componentList = [
   {
     category: 'Ethereum Network Stats',
     componentName: 'EgsGasPriceLow',
-    description: 'Gas price for safe low transactions, pulled from ETH Gas Station',
+    description: 'Gas price for safe low transactions',
     id: 12,
     isFirstInCategory: false,
     name: 'Safe Low Gas Price',

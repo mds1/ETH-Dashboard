@@ -13,8 +13,13 @@
         </div>
       </q-card-section>
 
-      <q-card-section class="main-card-section">
-        <div class="main-header">
+      <q-card-section class="main-card-section row justify-center items-center">
+        <img
+          alt="BAT logo"
+          class="col-auto q-mr-sm main-header-image"
+          src="statics/logos/bat.png"
+        >
+        <div class="col-auto main-header">
           BAT Price
         </div>
       </q-card-section>

@@ -13,8 +13,13 @@
         </div>
       </q-card-section>
 
-      <q-card-section class="main-card-section">
-        <div class="main-header">
+      <q-card-section class="main-card-section row justify-center items-center">
+        <img
+          alt="Maker logo"
+          class="col-auto q-mr-sm main-header-image"
+          src="statics/logos/mkr.png"
+        >
+        <div class="col-auto main-header">
           Maker Price
         </div>
       </q-card-section>

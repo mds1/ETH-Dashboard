@@ -13,8 +13,13 @@
         </div>
       </q-card-section>
 
-      <q-card-section class="main-card-section">
-        <div class="main-header">
+      <q-card-section class="main-card-section row justify-center items-center">
+        <img
+          alt="Dai logo"
+          class="col-auto q-mr-sm main-header-image"
+          src="statics/logos/dai.png"
+        >
+        <div class="col-auto main-header">
           Dai Price
         </div>
       </q-card-section>

@@ -18,7 +18,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section v-if="componentList.length > 0">
+        <q-card-section>
           <q-list style="margin-top: -1em;">
             <!-- Rendering a <label> tag (notice tag="label") so QCheckboxes
             will respond to clicks on QItems to change Toggle state. -->
@@ -139,7 +139,7 @@
       class="q-mt-xl"
       style="color: #000000; background-color: rgba(0,0,0,0)"
     >
-      <div class="row justify-center items-center dark-toggle q-my-xl">
+      <div class="row justify-center text-center items-center dark-toggle q-my-xl">
         <div
           class="text-caption"
           style="max-width: 800px;"
@@ -156,6 +156,21 @@
             target="_blank"
             class="hyperlink"
           >Floatify</a>.
+          <br><br>
+          Thanks to
+          <a
+            href="https://twitter.com/nanexcool"
+            target="_blank"
+            class="hyperlink"
+          >@nanexcool</a>
+          for building
+          <a
+            href="https://daistats.com/"
+            target="_blank"
+            class="hyperlink"
+          >Dai Stats</a>,
+          where a lot of the code to fetch Dai and Maker stats
+          was pulled from
         </div>
       </div>
     </q-footer>
@@ -188,10 +203,12 @@ export default {
     // Check local storage for a dark mode setting
     const isDark = this.$q.localStorage.getItem('isDark');
     this.$q.dark.set(isDark);
-    // Initialize array of selected components
-    this.selectedComponents = (new Array(this.componentList.length)).fill(false);
     // Check local storage for selected components
     this.selectedComponents = this.$q.localStorage.getItem('selectedComponents');
+    // Initialize array of selected components
+    if (!this.selectedComponents) {
+      this.selectedComponents = (new Array(this.componentList.length)).fill(true);
+    }
     this.$store.dispatch('main/setSelectedComponents', this.selectedComponents);
   },
 

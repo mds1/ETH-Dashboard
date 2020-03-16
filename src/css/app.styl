@@ -1,17 +1,26 @@
-.hyperlink
-  color $primary
-  text-decoration underline
-  cursor pointer
-  // Without this, the underline extends into the space for some reason
-  // solution source: https://stackoverflow.com/questions/23182904/css-underline-text-but-ignore-the-spaces
-  display inline-block
 
 .body--light, .dark-toggle
   color $dark
 
+  .hyperlink
+    color $primary
+    text-decoration underline
+    cursor pointer
+    // Without this, the underline extends into the space for some reason
+    // solution source: https://stackoverflow.com/questions/23182904/css-underline-text-but-ignore-the-spaces
+    display inline-block
+
 .body--dark
   .dark-toggle
     color $light
+
+  .hyperlink
+    color $darkprimary
+    text-decoration underline
+    cursor pointer
+    // Without this, the underline extends into the space for some reason
+    // solution source: https://stackoverflow.com/questions/23182904/css-underline-text-but-ignore-the-spaces
+    display inline-block
 
 h1, h2, h3, h4, h5, h6
   margin 0
@@ -44,6 +53,10 @@ h1, h2, h3, h4, h5, h6
   padding 0
   margin 0
   text-align center
+
+.main-header-image
+  max-width 25px !important
+  max-height 25px !important
 
 .gas-secondary-data
   font-size 1.5em
