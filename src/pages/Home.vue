@@ -15,7 +15,6 @@
     </div>
     <draggable
       v-else
-      v-model="componentsToShow"
       class="row justify-center q-mt-lg"
       group="components"
       @start="drag=true"
@@ -84,7 +83,6 @@ export default {
       showMkrDialog: false,
       showWethDialog: false,
       componentList,
-      componentOrder: undefined,
     };
   },
 
