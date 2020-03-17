@@ -42,8 +42,10 @@ import DaiStatsEthPrice from 'components/DaiStatsEthPrice';
 import DaiStatsMkrPrice from 'components/DaiStatsMkrPrice';
 import DaiStatsBatSf from 'components/DaiStatsBatSf';
 import DaiStatsEthSf from 'components/DaiStatsEthSf';
+import DaiStatsUsdcSf from 'components/DaiStatsUsdcSf';
 import DaiStatsDsr from 'components/DaiStatsDsr';
 import DaiStatsSurplus from 'components/DaiStatsSurplus';
+import DaiStatsDaiFromUsdc from 'components/DaiStatsDaiFromUsdc';
 import EgsGasPriceHighest from 'components/EgsGasPriceHighest';
 import EgsGasPriceHigh from 'components/EgsGasPriceHigh';
 import EgsGasPriceMedium from 'components/EgsGasPriceMedium';
@@ -65,8 +67,10 @@ export default {
     DaiStatsMkrPrice,
     DaiStatsBatSf,
     DaiStatsEthSf,
+    DaiStatsUsdcSf,
     DaiStatsDsr,
     DaiStatsSurplus,
+    DaiStatsDaiFromUsdc,
     EgsGasPriceHighest,
     EgsGasPriceHigh,
     EgsGasPriceMedium,

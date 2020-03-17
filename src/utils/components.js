@@ -65,11 +65,29 @@ export const componentList = [
   },
   {
     category: 'Dai and MakerDAO Stats',
+    componentName: 'DaiStatsUsdcSf',
+    description: 'USDC Stability Fee',
+    id: 17,
+    isFirstInCategory: false,
+    name: 'USDC Stability Fee',
+    source: 'Maker contracts',
+  },
+  {
+    category: 'Dai and MakerDAO Stats',
     componentName: 'DaiStatsDsr',
     description: 'Dai Savings Rate',
     id: 7,
     isFirstInCategory: false,
     name: 'Dai Savings Rate',
+    source: 'Maker contracts',
+  },
+  {
+    category: 'Dai and MakerDAO Stats',
+    componentName: 'DaiStatsDaiFromUsdc',
+    description: 'Amount of Dai generated with USDC as collateral',
+    id: 18,
+    isFirstInCategory: false,
+    name: 'Dai from USDC',
     source: 'Maker contracts',
   },
   {
@@ -81,6 +99,7 @@ export const componentList = [
     name: 'System Surplus',
     source: 'Maker contracts',
   },
+
   // ETH Gas Station
   {
     category: 'Ethereum Network Stats',

@@ -113,6 +113,7 @@ const flap = createContractInstance(addresses.MCD_FLAP, 'Flapper');
 const ethIlkBytes = utils.formatBytes32String('ETH-A');
 const batIlkBytes = utils.formatBytes32String('BAT-A');
 const saiIlkBytes = utils.formatBytes32String('SAI');
+const usdcIlkBytes = utils.formatBytes32String('USDC-A');
 
 // const cBAT = createContractInstance(addresses.cBAT, 'cBAT');
 const cDAI = createContractInstance(addresses.cDAI, 'cDAI');
@@ -198,6 +199,10 @@ export async function poll({ commit }) {
     [addresses.cUSDC, cUSDC.interface.functions.totalSupply.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalBorrowsCurrent.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalReserves.encode([])],
+    // USDC Maker data
+    [addresses.MCD_VAT, vat.interface.functions.ilks.encode([usdcIlkBytes])],
+    [addresses.MCD_JUG, jug.interface.functions.ilks.encode([usdcIlkBytes])],
+    [addresses.MCD_SPOT, spot.interface.functions.ilks.encode([usdcIlkBytes])],
   ]);
   const p2 = etherscanEthSupply();
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
@@ -273,6 +278,10 @@ export async function poll({ commit }) {
   const cUsdcTotalSupply = cUSDC.interface.functions.totalSupply.decode(res[48])[0];
   const cUsdcTotalBorrows = cUSDC.interface.functions.totalBorrowsCurrent.decode(res[49])[0];
   const cUsdcTotalReserves = cUSDC.interface.functions.totalReserves.decode(res[50])[0];
+  // Decode USDC MCD Data
+  const usdcIlk = vat.interface.functions.ilks.decode(res[51]);
+  const usdcFee = getFee(base, jug.interface.functions.ilks.decode(res[52]));
+  const jugUsdcDrip = jug.interface.functions.ilks.decode(res[52]);
 
   const compoundStats = {
     cDAI: {
@@ -318,6 +327,13 @@ export async function poll({ commit }) {
         line: utils.formatUnits(saiIlk.line, 45),
         dust: utils.formatUnits(saiIlk.dust, 45),
       },
+      {
+        Art: utils.formatEther(usdcIlk.Art),
+        rate: utils.formatUnits(usdcIlk.rate, 27),
+        spot: utils.formatUnits(usdcIlk.spot, 27),
+        line: utils.formatUnits(usdcIlk.line, 45),
+        dust: utils.formatUnits(usdcIlk.dust, 45),
+      },
     ],
     daiSupply: utils.formatEther(daiSupply[0]),
     saiSupply: utils.formatEther(saiSupply[0]),
@@ -331,9 +347,11 @@ export async function poll({ commit }) {
     ethFee: ethFee.toFixed(2),
     batFee: batFee.toFixed(2),
     saiFee: saiFee.toFixed(2),
+    usdcFee: usdcFee.toFixed(2),
     scdFee,
     jugEthDrip: unixToDateTime(jugEthDrip.rho.toNumber()),
     jugBatDrip: unixToDateTime(jugBatDrip.rho.toNumber()),
+    jugUsdcDrip: unixToDateTime(jugUsdcDrip.rho.toNumber()),
     sysSurplus: utils.formatUnits(vowDai[0].sub(vowSin[0]), 45),
     sysDebt: utils.formatUnits(vowSin[0].sub(sin[0]).sub(ash[0]), 45),
     sysDebtRaw: vowSin[0]
