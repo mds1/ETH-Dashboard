@@ -9,18 +9,27 @@
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(price, true, 2, 4) }}
+          {{ formatPercent(rate, false, 2) }} APY
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          :alt="`${tokenSymbol.toLowerCase()} logo`"
+          :alt="`${tokenSymbol} logo`"
           class="col-auto q-mr-sm main-header-image"
           :src="`statics/logos/${tokenSymbol.toLowerCase()}.png`"
         >
         <div class="col-auto main-header">
-          USDC Price
+          {{ tokenSymbol }} Supply Rate
+        </div>
+      </q-card-section>
+
+      <q-card-section class="main-card-section">
+        <div class="text-caption text-center q-mt-sm">
+          Total supplied: {{ formatCurrency(supply, false, 2, 2) }}
+        </div>
+        <div class="text-caption text-center">
+          Total reserves: {{ formatCurrency(reserves, false, 2, 2) }}
         </div>
       </q-card-section>
     </q-card>
@@ -32,7 +41,7 @@ import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
 
 export default {
-  name: 'TemplateCoinGeckoPrice',
+  name: 'TemplateCompoundBorrow',
 
   mixins: [mixinHelpers],
 
@@ -50,8 +59,14 @@ export default {
 
   computed: {
     ...mapState({
-      price(state) {
-        return state.main.data.tokenPrices[this.tokenSymbol.toLowerCase()];
+      rate(state) {
+        return state.main.data.compoundStats[this.tokenSymbol].supplyRate;
+      },
+      supply(state) {
+        return state.main.data.compoundStats[this.tokenSymbol].borrowRate;
+      },
+      reserves(state) {
+        return state.main.data.compoundStats[this.tokenSymbol].totalReserves;
       },
     }),
   },
