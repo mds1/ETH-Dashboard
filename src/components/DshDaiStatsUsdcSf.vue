@@ -3,28 +3,19 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(sysSurplus, false, 2, 2) }}
+          {{ formatPercent(usdcFee, false, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          System Surplus
-        </div>
-      </q-card-section>
-
-      <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
-          Surplus Buffer: {{ formatCurrency(surplusBuffer, false, 0, 0) }}
-        </div>
-        <div class="text-caption text-center">
-          Lot: {{ formatCurrency(surplusBump, false, 0, 0) }}
+          USDC Stability Fee
         </div>
       </q-card-section>
     </q-card>
@@ -34,17 +25,25 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsSurplus',
+  name: 'DshDaiStatsUsdcSf',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'USDC Stability Fee',
+      description: 'USDC Stability Fee',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      sysSurplus: (state) => state.main.data.daiStats.sysSurplus,
-      surplusBuffer: (state) => state.main.data.daiStats.surplusBuffer,
-      surplusBump: (state) => state.main.data.daiStats.surplusBump,
+      usdcFee: (state) => state.main.data.daiStats.usdcFee,
     }),
   },
 };

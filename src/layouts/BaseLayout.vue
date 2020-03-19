@@ -1,14 +1,11 @@
 <template>
   <q-layout view="hhh Lpr fff">
     <!-- COMPONENT SELECTION DIALOG -->
-    <q-dialog
-      v-model="showComponentSelection"
-      @hide="saveComponents()"
-    >
+    <q-dialog v-model="showComponentSelection">
       <q-card class="q-px-md q-py-md">
         <!-- Title and Description-->
         <q-card-section class="text-center">
-          <h4>
+          <h4 class="text-bold">
             Select Your Stats
           </h4>
           <div class="text-caption q-mt-md">
@@ -18,37 +15,41 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="allComponents">
           <q-list style="margin-top: -1em;">
             <!-- Rendering a <label> tag (notice tag="label") so QCheckboxes
             will respond to clicks on QItems to change Toggle state. -->
             <div
-              v-for="component in componentList"
-              :key="component.id"
+              v-for="(component,index) in allComponents"
+              :key="component.name"
             >
+              <!-- Section header -->
               <h5
-                v-if="component.isFirstInCategory"
+                v-if="index == 0 || component.data.category !== allComponents[index-1].data.category "
                 class="text-primary q-mt-md"
               >
-                {{ component.category }}
+                {{ component.data.category }}
               </h5>
+              <!-- Data with checkboxes -->
               <q-item tag="label">
                 <q-item-section
                   avatar
                   top
                 >
                   <q-checkbox
-                    v-model="selectedComponents[component.id]"
-                    :val="true"
+                    v-model="allComponentsLocal[index].isShown"
                     color="primary"
+                    @input="setComponentSelections"
                   />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label style="font-size: 1.1em">
-                    {{ component.name }}
+                    {{ component.data.title }}
                   </q-item-label>
                   <q-item-label style="opacity:0.7;">
-                    {{ component.description }}. Source: {{ component.source }}
+                    {{ component.data.description }}
+                    <br>
+                    Source: {{ component.data.source }}
                   </q-item-label>
                 </q-item-section>
               </q-item>
@@ -63,7 +64,6 @@
             color="primary"
             flat
             label="Ok"
-            @click="saveComponents()"
           />
         </q-card-actions>
       </q-card>
@@ -88,7 +88,7 @@
               style="max-width: 50px;"
             >
             <div class="text-h5 dark-toggle">
-              ETH Dashboard
+              Dashboard
             </div>
           </div>
         </div>
@@ -177,8 +177,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { componentList } from 'src/utils/components';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'BaseLayout',
@@ -186,29 +185,27 @@ export default {
   data() {
     return {
       showComponentSelection: false,
-      componentList,
-      selectedComponents: [],
+      allComponentsLocal: [],
     };
   },
 
   computed: {
+    ...mapGetters({
+      allComponents: 'prefs/allComponents',
+    }),
+
     ...mapState({
       blockNumber: (state) => state.main.data.blockNumber,
       networkId: (state) => state.main.data.networkId,
+      allComponents: (state) => state.prefs.allComponents,
     }),
   },
 
   created() {
-    // Check local storage for a dark mode setting
-    const isDark = this.$q.localStorage.getItem('isDark');
-    this.$q.dark.set(isDark);
-    // Check local storage for selected components
-    this.selectedComponents = this.$q.localStorage.getItem('selectedComponents');
-    // Initialize array of selected components
-    if (!this.selectedComponents) {
-      this.selectedComponents = (new Array(this.componentList.length)).fill(true);
-    }
-    this.$store.dispatch('main/setSelectedComponents', this.selectedComponents);
+    // Assign user selections
+    this.allComponents.forEach((component) => {
+      this.allComponentsLocal.push(component);
+    });
   },
 
   methods: {
@@ -222,11 +219,8 @@ export default {
       this.showComponentSelection = true;
     },
 
-    saveComponents() {
-      // Save to local storage
-      this.$q.localStorage.set('selectedComponents', this.selectedComponents);
-      // Update state
-      this.$store.dispatch('main/setSelectedComponents', this.selectedComponents);
+    setComponentSelections() {
+      this.$store.dispatch('prefs/setComponentSelections', this.allComponentsLocal);
     },
   },
 };

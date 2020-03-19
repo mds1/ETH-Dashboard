@@ -21,11 +21,11 @@
       @end="drag=false"
     >
       <div
-        v-for="component in componentsToShow"
+        v-for="component in selectedComponentsArray"
         :key="component.id"
         class="col-auto q-ma-md"
       >
-        <component :is="component.componentName" />
+        <component :is="component.name" />
       </div>
     </draggable>
   </q-page>
@@ -34,51 +34,63 @@
 <script>
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
-import { componentList } from 'src/utils/components';
-import DaiStatsTotalDai from 'components/DaiStatsTotalDai';
-import DaiStatsBatPrice from 'components/DaiStatsBatPrice';
-import DaiStatsDaiPrice from 'components/DaiStatsDaiPrice';
-import DaiStatsEthPrice from 'components/DaiStatsEthPrice';
-import DaiStatsMkrPrice from 'components/DaiStatsMkrPrice';
-import DaiStatsBatSf from 'components/DaiStatsBatSf';
-import DaiStatsEthSf from 'components/DaiStatsEthSf';
-import DaiStatsUsdcSf from 'components/DaiStatsUsdcSf';
-import DaiStatsDsr from 'components/DaiStatsDsr';
-import DaiStatsSurplus from 'components/DaiStatsSurplus';
-import DaiStatsDaiFromUsdc from 'components/DaiStatsDaiFromUsdc';
-import EgsGasPriceHighest from 'components/EgsGasPriceHighest';
-import EgsGasPriceHigh from 'components/EgsGasPriceHigh';
-import EgsGasPriceMedium from 'components/EgsGasPriceMedium';
-import EgsGasPriceLow from 'components/EgsGasPriceLow';
-import CompoundCdaiBorrow from 'components/CompoundCdaiBorrow';
-import CompoundCdaiSupply from 'components/CompoundCdaiSupply';
-import CompoundCusdcBorrow from 'components/CompoundCusdcBorrow';
-import CompoundCusdcSupply from 'components/CompoundCusdcSupply';
+import DshDaiStatsTotalDai from 'components/DshDaiStatsTotalDai';
+import DshDaiStatsBatPrice from 'components/DshDaiStatsBatPrice';
+import DshDaiStatsEthPrice from 'components/DshDaiStatsEthPrice';
+import DshDaiStatsBatSf from 'components/DshDaiStatsBatSf';
+import DshDaiStatsEthSf from 'components/DshDaiStatsEthSf';
+import DshDaiStatsUsdcSf from 'components/DshDaiStatsUsdcSf';
+import DshDaiStatsDsr from 'components/DshDaiStatsDsr';
+import DshDaiStatsSurplus from 'components/DshDaiStatsSurplus';
+import DshDaiStatsDaiFromUsdc from 'components/DshDaiStatsDaiFromUsdc';
+
+import DshCoinGeckoPriceDai from 'components/DshCoinGeckoPriceDai';
+import DshCoinGeckoPriceMkr from 'components/DshCoinGeckoPriceMkr';
+import DshCoinGeckoPriceUsdc from 'components/DshCoinGeckoPriceUsdc';
+import DshCoinGeckoPriceEth from 'components/DshCoinGeckoPriceEth';
+import DshCoinGeckoPriceBat from 'components/DshCoinGeckoPriceBat';
+
+import DshEgsGasPriceHighest from 'components/DshEgsGasPriceHighest';
+import DshEgsGasPriceHigh from 'components/DshEgsGasPriceHigh';
+import DshEgsGasPriceMedium from 'components/DshEgsGasPriceMedium';
+import DshEgsGasPriceLow from 'components/DshEgsGasPriceLow';
+
+import DshCompoundCdaiBorrow from 'components/DshCompoundCdaiBorrow';
+import DshCompoundCdaiSupply from 'components/DshCompoundCdaiSupply';
+import DshCompoundCusdcBorrow from 'components/DshCompoundCusdcBorrow';
+import DshCompoundCusdcSupply from 'components/DshCompoundCusdcSupply';
 
 export default {
-  name: 'HomePage',
+  name: 'Home',
 
   components: {
     draggable,
-    DaiStatsTotalDai,
-    DaiStatsBatPrice,
-    DaiStatsDaiPrice,
-    DaiStatsEthPrice,
-    DaiStatsMkrPrice,
-    DaiStatsBatSf,
-    DaiStatsEthSf,
-    DaiStatsUsdcSf,
-    DaiStatsDsr,
-    DaiStatsSurplus,
-    DaiStatsDaiFromUsdc,
-    EgsGasPriceHighest,
-    EgsGasPriceHigh,
-    EgsGasPriceMedium,
-    EgsGasPriceLow,
-    CompoundCdaiBorrow,
-    CompoundCdaiSupply,
-    CompoundCusdcBorrow,
-    CompoundCusdcSupply,
+    /* eslint-disable vue/no-unused-components */
+    DshDaiStatsTotalDai,
+    DshDaiStatsBatPrice,
+    DshDaiStatsEthPrice,
+    DshDaiStatsBatSf,
+    DshDaiStatsEthSf,
+    DshDaiStatsUsdcSf,
+    DshDaiStatsDsr,
+    DshDaiStatsSurplus,
+    DshDaiStatsDaiFromUsdc,
+    //
+    DshCoinGeckoPriceDai,
+    DshCoinGeckoPriceMkr,
+    DshCoinGeckoPriceUsdc,
+    DshCoinGeckoPriceEth,
+    DshCoinGeckoPriceBat,
+    //
+    DshEgsGasPriceHighest,
+    DshEgsGasPriceHigh,
+    DshEgsGasPriceMedium,
+    DshEgsGasPriceLow,
+    //
+    DshCompoundCdaiBorrow,
+    DshCompoundCdaiSupply,
+    DshCompoundCusdcBorrow,
+    DshCompoundCusdcSupply,
   },
 
   data() {
@@ -86,20 +98,17 @@ export default {
       now: undefined,
       showMkrDialog: false,
       showWethDialog: false,
-      componentList,
     };
   },
 
   computed: {
     ...mapState({
-      // Array of booleans as to whether or not to show each component
-      selectedComponents: (state) => state.main.selectedComponents,
+      allComponents: (state) => state.prefs.allComponents,
       blockNumber: (state) => state.main.data.blockNumber,
     }),
 
-    componentsToShow() {
-      if (!this.selectedComponents) return undefined;
-      return this.componentList.filter((component, index) => this.selectedComponents[index]);
+    selectedComponentsArray() {
+      return this.allComponents.filter((component) => component.isShown === true);
     },
 
   },

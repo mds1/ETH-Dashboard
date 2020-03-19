@@ -3,24 +3,30 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'CoinGecko API' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(daiPrice, true, 2, 2) }}
+          {{ formatCurrency(ethPrice, true, 2, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="Dai logo"
+          alt="Ether logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/dai.png"
+          src="statics/logos/eth.png"
         >
         <div class="col-auto main-header">
-          Dai Price
+          Ether Price
+        </div>
+      </q-card-section>
+
+      <q-card-section class="main-card-section">
+        <div class="text-caption text-center">
+          Next oracle price: {{ formatCurrency(ethPriceNxt, true, 2, 2) }}
         </div>
       </q-card-section>
     </q-card>
@@ -30,15 +36,26 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsDaiPrice',
+  name: 'DshDaiStatsEthPrice',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'Ether Price',
+      description: 'Current price of Ether',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      daiPrice: (state) => state.main.data.daiStats.daiPrice,
+      ethPrice: (state) => state.main.data.daiStats.ethPrice,
+      ethPriceNxt: (state) => state.main.data.daiStats.ethPriceNxt,
     }),
   },
 };

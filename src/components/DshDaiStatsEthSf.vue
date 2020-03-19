@@ -3,19 +3,19 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(totalDai, false, 2, 2) }}
+          {{ formatPercent(ethFee, false, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          Total Dai
+          ETH Stability Fee
         </div>
       </q-card-section>
     </q-card>
@@ -25,15 +25,25 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsTotalDai',
+  name: 'DshDaiStatsEthSf',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'ETH Stability Fee',
+      description: 'ETH Stability Fee',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      totalDai: (state) => state.main.data.daiStats.debt,
+      ethFee: (state) => state.main.data.daiStats.ethFee,
     }),
   },
 };

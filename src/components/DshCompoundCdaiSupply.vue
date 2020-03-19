@@ -3,7 +3,7 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Compound Contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
@@ -39,11 +39,21 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'CompoundCdaiSupply',
+  name: 'DshCompoundCdaiSupply',
 
   mixins: [mixinHelpers],
+
+  data() {
+    return {
+      category: categories.compound,
+      title: 'cDAI Supply Stats',
+      description: 'cDAI supply rate and total supplied',
+      source: sources.compound,
+    };
+  },
 
   computed: {
     ...mapState({

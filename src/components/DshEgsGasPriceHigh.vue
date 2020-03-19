@@ -3,19 +3,19 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'ETH Gas Station API' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          <span class="gas-medium">{{ gasPrice }}</span> gwei
+          <span class="gas-high">{{ gasPrice }}</span> gwei
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          Average Gas Price
+          Fast Gas Price
         </div>
       </q-card-section>
 
@@ -33,13 +33,23 @@
 
 <script>
 import { mapState } from 'vuex';
-import mixinHelpers from 'src/utils/mixinHelpers';
 import { ethers } from 'ethers';
+import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'EgsGasPriceMedium',
+  name: 'DshEgsGasPriceHigh',
 
   mixins: [mixinHelpers],
+
+  data() {
+    return {
+      category: categories.ethNetwork,
+      title: 'Fast Gas Price',
+      description: 'Gas price for fast transactions',
+      source: sources.egsApi,
+    };
+  },
 
   computed: {
     ...mapState({
@@ -49,11 +59,11 @@ export default {
 
     gasPrice() {
       if (!this.gasPrices) return 0;
-      return this.gasPrices.average / 10;
+      return this.gasPrices.fast / 10;
     },
     time() {
       if (!this.gasPrices) return 0;
-      return this.gasPrices.avgWait;
+      return this.gasPrices.fastWait;
     },
     cost() {
       if (!this.gasPrices) return 0;

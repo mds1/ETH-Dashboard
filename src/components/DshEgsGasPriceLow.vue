@@ -3,7 +3,7 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'ETH Gas Station API' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
@@ -33,13 +33,23 @@
 
 <script>
 import { mapState } from 'vuex';
-import mixinHelpers from 'src/utils/mixinHelpers';
 import { ethers } from 'ethers';
+import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'EgsGasPriceLow',
+  name: 'DshEgsGasPriceLow',
 
   mixins: [mixinHelpers],
+
+  data() {
+    return {
+      category: categories.ethNetwork,
+      title: 'Safe Low Gas Price',
+      description: 'Gas price for safe low transactions',
+      source: sources.egsApi,
+    };
+  },
 
   computed: {
     ...mapState({

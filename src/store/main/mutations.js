@@ -15,10 +15,6 @@ export function setContracts(state, contracts) {
   }
 }
 
-export function setSelectedComponents(state, components) {
-  state.selectedComponents = components;
-}
-
 export function setData(state, data) {
   try {
     Object.assign(state.data, data);

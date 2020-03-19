@@ -3,30 +3,24 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(ethPrice, true, 2, 2) }}
+          {{ formatCurrency(price, true, 2, 4) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="Ether logo"
+          alt="Maker logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/eth.png"
+          :src="`statics/logos/${tokenSymbol.toLowerCase()}.png`"
         >
         <div class="col-auto main-header">
-          Ether Price
-        </div>
-      </q-card-section>
-
-      <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
-          Next oracle price: {{ formatCurrency(ethPriceNxt, true, 2, 2) }}
+          USDC Price
         </div>
       </q-card-section>
     </q-card>
@@ -38,14 +32,28 @@ import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
 
 export default {
-  name: 'DaiStatsEtherPrice',
+  name: 'CoinGeckoPrice',
 
   mixins: [mixinHelpers],
 
+  props: {
+    source: {
+      type: String,
+      required: true,
+    },
+
+    tokenSymbol: {
+      type: String,
+      required: true,
+    },
+  },
+
   computed: {
     ...mapState({
-      ethPrice: (state) => state.main.data.daiStats.ethPrice,
-      ethPriceNxt: (state) => state.main.data.daiStats.ethPriceNxt,
+      // eslint-disable-next-line
+      price: function(state) {
+        return state.main.data.tokenPrices[this.tokenSymbol.toLowerCase()];
+      },
     }),
   },
 };

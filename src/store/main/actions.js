@@ -36,7 +36,7 @@ const getOSMPrice = async (osm, position) => {
 };
 
 const getMarketPrices = async () => {
-  const json = await jsonFetch('https://api.coingecko.com/api/v3/simple/price?ids=maker%2Cdai&vs_currencies=usd');
+  const json = await jsonFetch('https://api.coingecko.com/api/v3/simple/price?ids=maker%2Cdai%2Cusd-coin%2Cethereum%2Cbasic-attention-token&vs_currencies=usd');
   return json;
 };
 
@@ -102,6 +102,7 @@ const spot = createContractInstance(addresses.MCD_SPOT, 'Spotter');
 const weth = createContractInstance(addresses.ETH, 'ERC20');
 const bat = createContractInstance(addresses.BAT, 'ERC20');
 const sai = createContractInstance(addresses.SAI, 'ERC20');
+const usdc = createContractInstance(addresses.USDC, 'ERC20');
 const saiTub = createContractInstance(addresses.SAI_TUB, 'SaiTub');
 const dai = createContractInstance(addresses.MCD_DAI, 'Dai');
 const mkr = createContractInstance(addresses.MCD_GOV, 'DSToken');
@@ -109,11 +110,13 @@ const chai = createContractInstance(addresses.CHAI, 'Chai');
 const manager = createContractInstance(addresses.CDP_MANAGER, 'DssCdpManager');
 const ethFlip = createContractInstance(addresses.MCD_FLIP_ETH_A, 'Flipper');
 const batFlip = createContractInstance(addresses.MCD_FLIP_BAT_A, 'Flipper');
+const flop = createContractInstance(addresses.MCD_FLOP, 'Flopper');
 const flap = createContractInstance(addresses.MCD_FLAP, 'Flapper');
 const ethIlkBytes = utils.formatBytes32String('ETH-A');
 const batIlkBytes = utils.formatBytes32String('BAT-A');
 const saiIlkBytes = utils.formatBytes32String('SAI');
 const usdcIlkBytes = utils.formatBytes32String('USDC-A');
+const usdcPip = createContractInstance(addresses.PIP_USDC, 'DSValue');
 
 // const cBAT = createContractInstance(addresses.cBAT, 'cBAT');
 const cDAI = createContractInstance(addresses.cDAI, 'cDAI');
@@ -133,10 +136,6 @@ export function setContracts({ commit }, contracts) {
   commit('setContracts', contracts);
 }
 
-export function setSelectedComponents({ commit }, components) {
-  commit('setSelectedComponents', components);
-}
-
 // eslint-disable-next-line
 export async function poll({ commit }) {
   // eslint-disable-next-line
@@ -154,7 +153,7 @@ export async function poll({ commit }) {
     [addresses.MCD_VOW, vow.interface.functions.hump.encode([])],
     [addresses.MCD_VOW, vow.interface.functions.sump.encode([])],
     [addresses.MCD_DAI, dai.interface.functions.totalSupply.encode([])],
-    [addresses.MCD_DAI, dai.interface.functions.balanceOf.encode([addresses.UNISWAP_EXCHANGE])],
+    [addresses.MCD_DAI, dai.interface.functions.balanceOf.encode([addresses.UNISWAP_DAI])],
     [addresses.SAI, sai.interface.functions.totalSupply.encode([])],
     [addresses.SAI, sai.interface.functions.balanceOf.encode([addresses.MCD_JOIN_SAI])],
     [addresses.MCD_GOV, mkr.interface.functions.balanceOf.encode([addresses.GEM_PIT])],
@@ -185,6 +184,15 @@ export async function poll({ commit }) {
     [addresses.MCD_FLAP, flap.interface.functions.kicks.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.tax.encode([])],
     [addresses.SAI_TUB, saiTub.interface.functions.fee.encode([])],
+    [addresses.MCD_VAT, vat.interface.functions.ilks.encode([usdcIlkBytes])],
+    [addresses.MCD_JUG, jug.interface.functions.ilks.encode([usdcIlkBytes])],
+    [addresses.MCD_SPOT, spot.interface.functions.ilks.encode([usdcIlkBytes])],
+    [addresses.USDC, usdc.interface.functions.totalSupply.encode([])],
+    [addresses.USDC, usdc.interface.functions.balanceOf.encode([addresses.MCD_JOIN_USDC_A])],
+    [addresses.MCD_FLOP, flop.interface.functions.kicks.encode([])],
+    [addresses.MCD_VOW, vow.interface.functions.dump.encode([])],
+    [addresses.PIP_USDC, usdcPip.interface.functions.read.encode([])],
+    [addresses.MCD_GOV, mkr.interface.functions.balanceOf.encode([addresses.UNISWAP_MKR])],
     // Compound data, cDAI
     [addresses.cDAI, cDAI.interface.functions.borrowRatePerBlock.encode([])],
     [addresses.cDAI, cDAI.interface.functions.supplyRatePerBlock.encode([])],
@@ -199,11 +207,8 @@ export async function poll({ commit }) {
     [addresses.cUSDC, cUSDC.interface.functions.totalSupply.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalBorrowsCurrent.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalReserves.encode([])],
-    // USDC Maker data
-    [addresses.MCD_VAT, vat.interface.functions.ilks.encode([usdcIlkBytes])],
-    [addresses.MCD_JUG, jug.interface.functions.ilks.encode([usdcIlkBytes])],
-    [addresses.MCD_SPOT, spot.interface.functions.ilks.encode([usdcIlkBytes])],
   ]);
+
   const p2 = etherscanEthSupply();
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
   const p4 = getOSMPrice(addresses.PIP_BAT, POSITION_NXT);
@@ -215,6 +220,7 @@ export async function poll({ commit }) {
     [blockNumber, res], ethSupply, ethPriceNxt, batPriceNxt, marketPrices, egsGasPrices,
   ] = await Promise.all([p1, p2, p3, p4, p5, p6]);
 
+  // Parse responses
   const ethIlk = vat.interface.functions.ilks.decode(res[2]);
   const batIlk = vat.interface.functions.ilks.decode(res[3]);
   const saiIlk = vat.interface.functions.ilks.decode(res[4]);
@@ -255,33 +261,37 @@ export async function poll({ commit }) {
   const chaiSupply = chai.interface.functions.totalSupply.decode(res[32])[0];
   const daiBrewing = chaiSupply.mul(pieChi);
   const mkrSupply = mkr.interface.functions.totalSupply.decode(res[33]);
-  const mkrPrice = marketPrices.maker.usd;
-  const daiPrice = marketPrices.dai.usd;
   const vice = vat.interface.functions.vice.decode(res[34]);
   const flapKicks = flap.interface.functions.kicks.decode(res[36])[0];
   const saiTubTax = calcFee(saiTub.interface.functions.tax.decode(res[37])[0]);
   const saiTubFee = calcFee(saiTub.interface.functions.fee.decode(res[38])[0]);
+  const usdcIlk = vat.interface.functions.ilks.decode(res[39]);
+  const usdcFee = getFee(base, jug.interface.functions.ilks.decode(res[40]));
+  const jugUsdcDrip = jug.interface.functions.ilks.decode(res[40]);
+  const usdcSupply = usdc.interface.functions.totalSupply.decode(res[42]);
+  const usdcLocked = usdc.interface.functions.balanceOf.decode(res[43]);
+  const usdcPrice = usdcPip.interface.functions.read.decode(res[46])[0];
+  const uniswapMkr = dai.interface.functions.balanceOf.decode(res[47]);
   const scdFee = saiTubTax + saiTubFee;
   // End daistats.com data
+
   // Begin our own data
+
   // Compound data, cDAI
-  const cDaiBorrowRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[39])[0];
-  const cDaiSupplyRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[40])[0];
-  const cDaiExchangeRate = cDAI.interface.functions.exchangeRateCurrent.decode(res[41])[0];
-  const cDaiTotalSupply = cDAI.interface.functions.totalSupply.decode(res[42])[0];
-  const cDaiTotalBorrows = cDAI.interface.functions.totalBorrowsCurrent.decode(res[43])[0];
-  const cDaiTotalReserves = cDAI.interface.functions.totalReserves.decode(res[44])[0];
+  const cDaiBorrowRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[48])[0];
+  const cDaiSupplyRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[49])[0];
+  const cDaiExchangeRate = cDAI.interface.functions.exchangeRateCurrent.decode(res[50])[0];
+  const cDaiTotalSupply = cDAI.interface.functions.totalSupply.decode(res[51])[0];
+  const cDaiTotalBorrows = cDAI.interface.functions.totalBorrowsCurrent.decode(res[52])[0];
+  const cDaiTotalReserves = cDAI.interface.functions.totalReserves.decode(res[53])[0];
+
   // Compound data, cUSDC
-  const cUsdcBorrowRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[45])[0];
-  const cUsdcSupplyRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[46])[0];
-  const cUsdcExchangeRate = cUSDC.interface.functions.exchangeRateCurrent.decode(res[47])[0];
-  const cUsdcTotalSupply = cUSDC.interface.functions.totalSupply.decode(res[48])[0];
-  const cUsdcTotalBorrows = cUSDC.interface.functions.totalBorrowsCurrent.decode(res[49])[0];
-  const cUsdcTotalReserves = cUSDC.interface.functions.totalReserves.decode(res[50])[0];
-  // Decode USDC MCD Data
-  const usdcIlk = vat.interface.functions.ilks.decode(res[51]);
-  const usdcFee = getFee(base, jug.interface.functions.ilks.decode(res[52]));
-  const jugUsdcDrip = jug.interface.functions.ilks.decode(res[52]);
+  const cUsdcBorrowRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[54])[0];
+  const cUsdcSupplyRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[55])[0];
+  const cUsdcExchangeRate = cUSDC.interface.functions.exchangeRateCurrent.decode(res[56])[0];
+  const cUsdcTotalSupply = cUSDC.interface.functions.totalSupply.decode(res[57])[0];
+  const cUsdcTotalBorrows = cUSDC.interface.functions.totalBorrowsCurrent.decode(res[58])[0];
+  const cUsdcTotalReserves = cUSDC.interface.functions.totalReserves.decode(res[59])[0];
 
   const compoundStats = {
     cDAI: {
@@ -300,6 +310,15 @@ export async function poll({ commit }) {
       totalBorrows: utils.formatUnits(cUsdcTotalBorrows, 6),
       totalReserves: utils.formatUnits(cUsdcTotalReserves, 6),
     },
+  };
+
+  const tokenPrices = {
+    bat: marketPrices['basic-attention-token'].usd,
+    dai: marketPrices.dai.usd,
+    eth: marketPrices.ethereum.usd,
+    mkr: marketPrices.maker.usd,
+    usdc: marketPrices['usd-coin'].usd,
+
   };
 
   const daiStats = {
@@ -338,12 +357,15 @@ export async function poll({ commit }) {
     daiSupply: utils.formatEther(daiSupply[0]),
     saiSupply: utils.formatEther(saiSupply[0]),
     ethSupply: utils.formatEther(ethSupply),
-    ethLocked: utils.formatEther(ethLocked[0]),
     batSupply: utils.formatEther(batSupply[0]),
+    usdcSupply: utils.formatUnits(usdcSupply[0], 6),
+    ethLocked: utils.formatEther(ethLocked[0]),
     batLocked: utils.formatEther(batLocked[0]),
     saiLocked: utils.formatEther(saiLocked[0]),
+    usdcLocked: utils.formatUnits(usdcLocked[0], 6),
     gemPit: utils.formatEther(gemPit[0]),
     uniswapDai: utils.formatEther(uniswapDai[0]),
+    uniswapMkr: utils.formatEther(uniswapMkr[0]),
     ethFee: ethFee.toFixed(2),
     batFee: batFee.toFixed(2),
     saiFee: saiFee.toFixed(2),
@@ -373,8 +395,7 @@ export async function poll({ commit }) {
     ethPriceNxt: utils.formatEther(ethPriceNxt),
     batPrice: utils.formatUnits(batPrice, 27),
     batPriceNxt: utils.formatEther(batPriceNxt),
-    mkrPrice,
-    daiPrice,
+    usdcPrice: utils.formatEther(usdcPrice),
     sysLocked: utils.formatUnits(sysLocked, 45),
     chaiSupply: utils.formatEther(chaiSupply),
     mkrSupply: utils.formatEther(mkrSupply[0]),
@@ -387,7 +408,7 @@ export async function poll({ commit }) {
       scdFee,
       savingsDai,
       potFee,
-      mkrPrice,
+      tokenPrices.mkrPrice,
     ),
     vice: utils.formatUnits(vice[0], 45),
     daiBrewing: utils.formatUnits(daiBrewing, 45),
@@ -400,6 +421,7 @@ export async function poll({ commit }) {
     daiStats,
     egsGasPrices,
     compoundStats,
+    tokenPrices,
   };
 
   commit('setData', data);

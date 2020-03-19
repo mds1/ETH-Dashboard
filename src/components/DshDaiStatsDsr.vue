@@ -3,7 +3,7 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
@@ -25,11 +25,21 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsDsr',
+  name: 'DshDaiStatsDsr',
 
   mixins: [mixinHelpers],
+
+  data() {
+    return {
+      category: categories.maker,
+      title: 'Dai Savings Rate',
+      description: 'Dai Savings Rate',
+      source: sources.maker,
+    };
+  },
 
   computed: {
     ...mapState({

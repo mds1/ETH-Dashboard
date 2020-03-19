@@ -3,33 +3,30 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Compound Contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatPercent(rate, false, 2) }} APY
+          {{ formatCurrency(batPrice, true, 2, 4) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="cUSDC logo"
+          alt="BAT logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/cusdc.png"
+          src="statics/logos/bat.png"
         >
         <div class="col-auto main-header">
-          cUSDC Supply Rate
+          BAT Price
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="text-caption text-center q-mt-sm">
-          Total supplied: {{ formatCurrency(supply, false, 2, 2) }}
-        </div>
         <div class="text-caption text-center">
-          Total reserves: {{ formatCurrency(reserves, false, 2, 2) }}
+          Next oracle price: {{ formatCurrency(batPriceNxt, true, 2, 4) }}
         </div>
       </q-card-section>
     </q-card>
@@ -39,17 +36,26 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'CompoundCusdcSupply',
+  name: 'DshDaiStatsBatPrice',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'BAT Price',
+      description: 'Current price of BAT',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      rate: (state) => state.main.data.compoundStats.cUSDC.supplyRate,
-      supply: (state) => state.main.data.compoundStats.cUSDC.totalSupply,
-      reserves: (state) => state.main.data.compoundStats.cUSDC.totalReserves,
+      batPrice: (state) => state.main.data.daiStats.batPrice,
+      batPriceNxt: (state) => state.main.data.daiStats.batPriceNxt,
     }),
   },
 };

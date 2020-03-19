@@ -3,30 +3,30 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(batPrice, true, 2, 4) }}
+          {{ formatPercent(rate, false, 2) }} APY
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="BAT logo"
+          alt="cDAI logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/bat.png"
+          src="statics/logos/cdai.png"
         >
         <div class="col-auto main-header">
-          BAT Price
+          cDAI Borrow Rate
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
-          Next oracle price: {{ formatCurrency(batPriceNxt, true, 2, 4) }}
+        <div class="text-caption text-center q-mt-sm">
+          Total borrows: {{ formatCurrency(supply, false, 2, 2) }}
         </div>
       </q-card-section>
     </q-card>
@@ -36,16 +36,26 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsBatPrice',
+  name: 'DshCompoundCdaiBorrow',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.compound,
+      title: 'cDAI Borrow Stats',
+      description: 'cDAI borrow rate and total borrowed',
+      source: sources.compound,
+    };
+  },
+
   computed: {
     ...mapState({
-      batPrice: (state) => state.main.data.daiStats.batPrice,
-      batPriceNxt: (state) => state.main.data.daiStats.batPriceNxt,
+      rate: (state) => state.main.data.compoundStats.cDAI.borrowRate,
+      supply: (state) => state.main.data.compoundStats.cDAI.totalBorrows,
     }),
   },
 };

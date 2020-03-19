@@ -3,7 +3,7 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Compound Contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
@@ -15,12 +15,12 @@
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="cDAI logo"
+          alt="cUSDC logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/cdai.png"
+          src="statics/logos/cusdc.png"
         >
         <div class="col-auto main-header">
-          cDAI Borrow Rate
+          cUSDC Borrow Rate
         </div>
       </q-card-section>
 
@@ -36,16 +36,26 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'CompoundCdaiBorrow',
+  name: 'DshCompoundCusdcBorrow',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.compound,
+      title: 'cUSDC Borrow Stats',
+      description: 'cUSDC borrow rate and total borrowed',
+      source: sources.compound,
+    };
+  },
+
   computed: {
     ...mapState({
-      rate: (state) => state.main.data.compoundStats.cDAI.borrowRate,
-      supply: (state) => state.main.data.compoundStats.cDAI.totalBorrows,
+      rate: (state) => state.main.data.compoundStats.cUSDC.borrowRate,
+      supply: (state) => state.main.data.compoundStats.cUSDC.totalBorrows,
     }),
   },
 };

@@ -3,19 +3,19 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'Maker contracts' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatPercent(usdcFee, false, 2) }}
+          {{ formatPercent(batFee, false, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          USDC Stability Fee
+          BAT Stability Fee
         </div>
       </q-card-section>
     </q-card>
@@ -25,15 +25,25 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DaiStatsUsdcSf',
+  name: 'DshDaiStatsBatSf',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'BAT Stability Fee',
+      description: 'BAT Stability Fee',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      usdcFee: (state) => state.main.data.daiStats.usdcFee,
+      batFee: (state) => state.main.data.daiStats.batFee,
     }),
   },
 };

@@ -3,28 +3,28 @@
     <q-card class="main-card full-height">
       <q-card-section class="main-card-section">
         <div class="text-caption main-caption">
-          Source: {{ 'ETH Gas Station API' }}
+          Source: {{ source }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          <span class="gas-high">{{ gasPrice }}</span> gwei
+          {{ formatCurrency(sysSurplus, false, 2, 2) }}
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="main-header">
-          Fast Gas Price
+          System Surplus
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section">
         <div class="text-caption text-center">
-          {{ time }} minute wait
+          Surplus Buffer: {{ formatCurrency(surplusBuffer, false, 0, 0) }}
         </div>
         <div class="text-caption text-center">
-          {{ formatCurrency(cost, true, 2, 4) }}/transfer
+          Lot: {{ formatCurrency(surplusBump, false, 0, 0) }}
         </div>
       </q-card-section>
     </q-card>
@@ -34,33 +34,28 @@
 <script>
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
-import { ethers } from 'ethers';
+import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'EgsGasPriceHigh',
+  name: 'DshDaiStatsSurplus',
 
   mixins: [mixinHelpers],
 
+  data() {
+    return {
+      category: categories.maker,
+      title: 'System Surplus',
+      description: 'System surplus, measured in Dai',
+      source: sources.maker,
+    };
+  },
+
   computed: {
     ...mapState({
-      gasPrices: (state) => state.main.data.egsGasPrices,
-      ethPrice: (state) => state.main.data.daiStats.ethPrice,
+      sysSurplus: (state) => state.main.data.daiStats.sysSurplus,
+      surplusBuffer: (state) => state.main.data.daiStats.surplusBuffer,
+      surplusBump: (state) => state.main.data.daiStats.surplusBump,
     }),
-
-    gasPrice() {
-      if (!this.gasPrices) return 0;
-      return this.gasPrices.fast / 10;
-    },
-    time() {
-      if (!this.gasPrices) return 0;
-      return this.gasPrices.fastWait;
-    },
-    cost() {
-      if (!this.gasPrices) return 0;
-      const val = Math.ceil(this.gasPrice * 21000 * this.ethPrice);
-      if (Number.isNaN(val)) return 0;
-      return ethers.utils.formatUnits(val, 9);
-    },
   },
 };
 </script>
