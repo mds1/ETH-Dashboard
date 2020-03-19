@@ -14,6 +14,7 @@ import DshDaiStatsEthSf from 'components/DshDaiStatsEthSf';
 import DshDaiStatsUsdcSf from 'components/DshDaiStatsUsdcSf';
 import DshDaiStatsDsr from 'components/DshDaiStatsDsr';
 import DshDaiStatsSurplus from 'components/DshDaiStatsSurplus';
+import DshDaiStatsDaiFromUsdc from 'components/DshDaiStatsDaiFromUsdc';
 
 import DshCoinGeckoPriceDai from 'components/DshCoinGeckoPriceDai';
 import DshCoinGeckoPriceMkr from 'components/DshCoinGeckoPriceMkr';
@@ -46,6 +47,7 @@ export default {
     DshDaiStatsUsdcSf,
     DshDaiStatsDsr,
     DshDaiStatsSurplus,
+    DshDaiStatsDaiFromUsdc,
     //
     DshCoinGeckoPriceBat,
     DshCoinGeckoPriceDai,
