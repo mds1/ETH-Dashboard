@@ -32,6 +32,9 @@ import DshCompoundCdaiSupply from 'components/DshCompoundCdaiSupply';
 import DshCompoundCusdcBorrow from 'components/DshCompoundCusdcBorrow';
 import DshCompoundCusdcSupply from 'components/DshCompoundCusdcSupply';
 
+import DshPoolTogetherDaiPool from 'components/DshPoolTogetherDaiPool';
+import DshPoolTogetherDaiPrize from 'components/DshPoolTogetherDaiPrize';
+
 export default {
   name: 'App',
 
@@ -64,6 +67,9 @@ export default {
     DshCompoundCdaiSupply,
     DshCompoundCusdcBorrow,
     DshCompoundCusdcSupply,
+    //
+    DshPoolTogetherDaiPool,
+    DshPoolTogetherDaiPrize,
   },
 
   computed: {

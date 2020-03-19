@@ -1,7 +1,10 @@
 import { provider } from 'boot/ethereum';
 import { ethers } from 'ethers';
+import { date } from 'quasar';
 
 const addresses = require('src/addresses.json');
+const pt = require('pooltogetherjs');
+const poolTogetherDrawDates = require('src/utils/poolTogetherDrawDates');
 
 const { utils } = ethers;
 const RAY = utils.bigNumberify('1000000000000000000000000000');
@@ -90,6 +93,54 @@ const createContractInstance = (address, name) => {
   return new ethers.Contract(address, abi, provider);
 };
 
+/**
+ * @notice Drawings are every Friday at noon PST. Returns the next drawing date
+ */
+const getPoolTogetherDaiDrawDate = () => {
+  const now = Date.now();
+  for (let i = 0; i < poolTogetherDrawDates.length; i += 1) {
+    const drawDate = new Date(poolTogetherDrawDates[i]);
+    const diff = date.getDateDiff(drawDate, now);
+    if (diff > 0) {
+      return poolTogetherDrawDates[i];
+    }
+  }
+  return undefined;
+};
+
+/**
+ * @notice Get estimated PoolTogether prize for the next drawing
+ * source: https://github.com/pooltogether/pooltogetherjs
+ */
+const getPoolTogetherDaiPrize = (balance, accountedBalance, draw, supplyRatePerBlock) => {
+  // First calculate the value of the prize that has accrued so far
+  const prize = pt.utils.calculatePrize(
+    balance,
+    accountedBalance,
+    draw.feeFraction,
+  );
+
+  const prizeSupplyRate = pt.utils.calculatePrizeSupplyRate(
+    supplyRatePerBlock,
+    draw.feeFraction,
+  );
+
+  // Use the next prize award date as the string.
+  // For daily pools every day at noon PST, for weekly every Friday at noon PST.
+  const awardAtMs = Date.parse(getPoolTogetherDaiDrawDate());
+  const remainingTimeS = (awardAtMs - (new Date()).getTime()) / 1000;
+  const remainingBlocks = remainingTimeS / 15; // about 15 second block periods
+  const blocksFixedPoint18 = utils.parseEther(String(remainingBlocks)); // use fixed point 18 for fractional blocks
+  const prizeEstimate = pt.utils.calculatePrizeEstimate(
+    balance,
+    prize,
+    blocksFixedPoint18,
+    prizeSupplyRate,
+  );
+  return utils.formatEther(prizeEstimate.toString());
+};
+
+
 // Build contract instances (from https://daistats.com/)
 const multi = createContractInstance(addresses.MULTICALL, 'Multicall');
 const vat = createContractInstance(addresses.MCD_VAT, 'Vat');
@@ -127,7 +178,9 @@ const cUSDC = createContractInstance(addresses.cUSDC, 'cUSDC');
 // const cWBTC = createContractInstance(addresses.cWBTC, 'cWBTC');
 // const cZRX = createContractInstance(addresses.cZRX, 'cZRX');
 
+const poolDai = createContractInstance(addresses.POOL_DAI, 'PoolDai');
 
+// Actions start here ==============================================================================
 export function setProvider({ commit }, providerUsed) {
   commit('setProvider', providerUsed);
 }
@@ -207,6 +260,12 @@ export async function poll({ commit }) {
     [addresses.cUSDC, cUSDC.interface.functions.totalSupply.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalBorrowsCurrent.encode([])],
     [addresses.cUSDC, cUSDC.interface.functions.totalReserves.encode([])],
+    // PoolTogether
+    [addresses.POOL_DAI, poolDai.interface.functions.currentCommittedDrawId.encode([])], // draw ID
+    [addresses.POOL_DAI, poolDai.interface.functions.balance.encode([])], // all deposits + accrued interest
+    [addresses.POOL_DAI, poolDai.interface.functions.accountedBalance.encode([])], // funds allocated to winners, etc.
+    [addresses.POOL_DAI, poolDai.interface.functions.committedSupply.encode([])], // eligible tickets
+    [addresses.POOL_DAI, poolDai.interface.functions.openSupply.encode([])], // open tickets
   ]);
 
   const p2 = etherscanEthSupply();
@@ -279,7 +338,7 @@ export async function poll({ commit }) {
 
   // Compound data, cDAI
   const cDaiBorrowRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[48])[0];
-  const cDaiSupplyRate = cDAI.interface.functions.borrowRatePerBlock.decode(res[49])[0];
+  const cDaiSupplyRate = cDAI.interface.functions.supplyRatePerBlock.decode(res[49])[0];
   const cDaiExchangeRate = cDAI.interface.functions.exchangeRateCurrent.decode(res[50])[0];
   const cDaiTotalSupply = cDAI.interface.functions.totalSupply.decode(res[51])[0];
   const cDaiTotalBorrows = cDAI.interface.functions.totalBorrowsCurrent.decode(res[52])[0];
@@ -287,12 +346,23 @@ export async function poll({ commit }) {
 
   // Compound data, cUSDC
   const cUsdcBorrowRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[54])[0];
-  const cUsdcSupplyRate = cUSDC.interface.functions.borrowRatePerBlock.decode(res[55])[0];
+  const cUsdcSupplyRate = cUSDC.interface.functions.supplyRatePerBlock.decode(res[55])[0];
   const cUsdcExchangeRate = cUSDC.interface.functions.exchangeRateCurrent.decode(res[56])[0];
   const cUsdcTotalSupply = cUSDC.interface.functions.totalSupply.decode(res[57])[0];
   const cUsdcTotalBorrows = cUSDC.interface.functions.totalBorrowsCurrent.decode(res[58])[0];
   const cUsdcTotalReserves = cUSDC.interface.functions.totalReserves.decode(res[59])[0];
 
+  // PoolTogether
+  const poolDaiCurrentDraw = poolDai.interface.functions.currentCommittedDrawId.decode(res[60])[0];
+  // total value of all deposits + interest (helper for Compounds balanceOfUnderlying)
+  const poolDaiBalance = poolDai.interface.functions.balance.decode(res[61])[0];
+  // total funds that have been accounted for, i.e. allocated to winners and sponsors
+  // "new" money is defined as balance minus accountBalance
+  const poolDaiAccountedBalance = poolDai.interface.functions.accountedBalance.decode(res[62])[0];
+  const poolDaiEligibleTickets = poolDai.interface.functions.committedSupply.decode(res[63])[0];
+  const poolDaiOpenTickets = poolDai.interface.functions.openSupply.decode(res[64])[0];
+
+  // Formatting for store ==========================================================================
   const compoundStats = {
     cDAI: {
       borrowRate: compoundRateToApy(cDaiBorrowRate),
@@ -318,7 +388,18 @@ export async function poll({ commit }) {
     eth: marketPrices.ethereum.usd,
     mkr: marketPrices.maker.usd,
     usdc: marketPrices['usd-coin'].usd,
+  };
 
+  const poolDaiDraw = await poolDai.getDraw(poolDaiCurrentDraw);
+  const poolTogether = {
+    dai: {
+      totalEarningInterest: utils.formatEther(poolDaiAccountedBalance),
+      eligibleTickets: utils.formatEther(poolDaiEligibleTickets),
+      openTickets: utils.formatEther(poolDaiOpenTickets),
+      sponsored: utils.formatEther(poolDaiAccountedBalance.sub(poolDaiEligibleTickets).sub(poolDaiOpenTickets)),
+      estimatedPrize: getPoolTogetherDaiPrize(poolDaiBalance, poolDaiAccountedBalance, poolDaiDraw, cDaiSupplyRate),
+      prizeDrawingDate: getPoolTogetherDaiDrawDate(),
+    },
   };
 
   const daiStats = {
@@ -422,6 +503,7 @@ export async function poll({ commit }) {
     egsGasPrices,
     compoundStats,
     tokenPrices,
+    poolTogether,
   };
 
   commit('setData', data);

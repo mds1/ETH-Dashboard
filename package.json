@@ -17,6 +17,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "ethers": "^4.0.45",
+    "pooltogetherjs": "pooltogether/pooltogetherjs",
     "quasar": "^1.0.0",
     "vuedraggable": "^2.23.2"
   },
