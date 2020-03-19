@@ -20,7 +20,7 @@
           :src="`statics/logos/${tokenSymbol.toLowerCase()}.png`"
         >
         <div class="col-auto main-header">
-          USDC Price
+          {{ tokenSymbol }} Price
         </div>
       </q-card-section>
     </q-card>
