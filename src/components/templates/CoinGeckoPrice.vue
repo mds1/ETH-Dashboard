@@ -15,7 +15,7 @@
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="Maker logo"
+          :alt="`${tokenSymbol.toLowerCase()} logo`"
           class="col-auto q-mr-sm main-header-image"
           :src="`statics/logos/${tokenSymbol.toLowerCase()}.png`"
         >
