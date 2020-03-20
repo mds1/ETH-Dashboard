@@ -6,6 +6,7 @@
 
 <script>
 import { mapState } from 'vuex';
+// Dai/Maker Stats
 import DshDaiStatsTotalDai from 'components/DshDaiStatsTotalDai';
 import DshDaiStatsBatPrice from 'components/DshDaiStatsBatPrice';
 import DshDaiStatsEthPrice from 'components/DshDaiStatsEthPrice';
@@ -15,23 +16,27 @@ import DshDaiStatsUsdcSf from 'components/DshDaiStatsUsdcSf';
 import DshDaiStatsDsr from 'components/DshDaiStatsDsr';
 import DshDaiStatsSurplus from 'components/DshDaiStatsSurplus';
 import DshDaiStatsDaiFromUsdc from 'components/DshDaiStatsDaiFromUsdc';
-
+// Token Prices
 import DshCoinGeckoPriceDai from 'components/DshCoinGeckoPriceDai';
 import DshCoinGeckoPriceMkr from 'components/DshCoinGeckoPriceMkr';
 import DshCoinGeckoPriceUsdc from 'components/DshCoinGeckoPriceUsdc';
 import DshCoinGeckoPriceEth from 'components/DshCoinGeckoPriceEth';
 import DshCoinGeckoPriceBat from 'components/DshCoinGeckoPriceBat';
-
+// Ethereum Network Stats
+//   Gas Prices
 import DshEgsGasPriceHighest from 'components/DshEgsGasPriceHighest';
 import DshEgsGasPriceHigh from 'components/DshEgsGasPriceHigh';
 import DshEgsGasPriceMedium from 'components/DshEgsGasPriceMedium';
 import DshEgsGasPriceLow from 'components/DshEgsGasPriceLow';
-
+//   Total Value Locked in DeFi
+import DshDefiPulseTvlUsd from 'components/DshDefiPulseTvlUsd';
+import DshDefiPulseTvlEth from 'components/DshDefiPulseTvlEth';
+// Compound Stats
 import DshCompoundCdaiBorrow from 'components/DshCompoundCdaiBorrow';
 import DshCompoundCdaiSupply from 'components/DshCompoundCdaiSupply';
 import DshCompoundCusdcBorrow from 'components/DshCompoundCusdcBorrow';
 import DshCompoundCusdcSupply from 'components/DshCompoundCusdcSupply';
-
+// PoolTogether Stats
 import DshPoolTogetherDaiPool from 'components/DshPoolTogetherDaiPool';
 import DshPoolTogetherDaiPrize from 'components/DshPoolTogetherDaiPrize';
 
@@ -41,7 +46,10 @@ export default {
   components: {
     // Changing the order of components here will change the order they
     // shown in the first time a user loads the page
+
     /* eslint-disable vue/no-unused-components */
+
+    // Dai/Maker Stats
     DshDaiStatsTotalDai,
     DshDaiStatsBatPrice,
     DshDaiStatsEthPrice,
@@ -51,23 +59,27 @@ export default {
     DshDaiStatsDsr,
     DshDaiStatsSurplus,
     DshDaiStatsDaiFromUsdc,
-    //
+    // Token Prices
     DshCoinGeckoPriceBat,
     DshCoinGeckoPriceDai,
     DshCoinGeckoPriceEth,
     DshCoinGeckoPriceMkr,
     DshCoinGeckoPriceUsdc,
-    //
+    // Ethereum Network Stats
+    //   Gas Prices
     DshEgsGasPriceHighest,
     DshEgsGasPriceHigh,
     DshEgsGasPriceMedium,
     DshEgsGasPriceLow,
-    //
+    //   Total Value Locked in DeFi
+    DshDefiPulseTvlUsd,
+    DshDefiPulseTvlEth,
+    // Compound Stats
     DshCompoundCdaiBorrow,
     DshCompoundCdaiSupply,
     DshCompoundCusdcBorrow,
     DshCompoundCusdcSupply,
-    //
+    // Compound Stats
     DshPoolTogetherDaiPool,
     DshPoolTogetherDaiPrize,
   },
@@ -107,8 +119,11 @@ export default {
     }
 
     // Update data on every new block
-    this.$store.dispatch('main/poll');
+    this.$store.dispatch('main/pollSlow');
     this.provider.on('block', () => this.$store.dispatch('main/poll'));
+    setInterval(() => {
+      this.$store.dispatch('main/pollSlow');
+    }, 5 * 60 * 1000); // every 5 minutes
   },
 };
 </script>

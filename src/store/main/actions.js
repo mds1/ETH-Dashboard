@@ -118,6 +118,38 @@ const getCurveData = async () => {
   console.log('busd ', busd);
 };
 
+const getDefiPulseData = async () => {
+  try {
+    const json = await jsonFetch(`https://public.defipulse.com/api/MarketData?api-key=${process.env.CONCOURSE_API_KEY}`);
+
+    const data = {
+      tvl: {
+        usd: json.All.value.total.USD.value,
+        eth: json.All.value.total.ETH.value,
+      },
+      dominance: {
+        name: json.All.dominance_name,
+        value: json.All.dominance_value, // value and percent are in dollars
+        percent: json.All.dominance_pct,
+      },
+    };
+    return data;
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    return {
+      tvl: {
+        usd: undefined,
+        eth: undefined,
+      },
+      dominance: {
+        name: undefined,
+        value: undefined,
+        percent: undefined,
+      },
+    };
+  }
+};
+
 
 const compoundBlockTime = 14.5; // assumed block time, seconds
 const compoundRateToApy = (rate) => {
@@ -235,10 +267,9 @@ export function setContracts({ commit }, contracts) {
   commit('setContracts', contracts);
 }
 
-// eslint-disable-next-line
-export async function poll({ commit }) {
+export async function poll({ commit }, slowPollData = undefined) {
   // eslint-disable-next-line
-  console.log('Polling blockchain for latest data...');
+  console.log('Executing poll for latest data...');
 
   // try {
   //   await getCurveData();
@@ -556,7 +587,22 @@ export async function poll({ commit }) {
     compoundStats,
     tokenPrices,
     poolTogether,
+    ...slowPollData,
   };
 
   commit('setData', data);
+}
+
+/**
+ * @notice This actions if for data that should be polled at a
+ * slower rate (e.g. API rate limits, changes slower etc.)
+ */
+export async function pollSlow({ commit }) {
+  console.log('Executing slow poll for latest data...'); // eslint-disable-line no-console
+  const p1 = getDefiPulseData();
+  const [defiPulse] = await Promise.all([p1]);
+  const data = {
+    defiPulse,
+  };
+  poll({ commit }, data);
 }

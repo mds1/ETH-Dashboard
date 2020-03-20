@@ -12,5 +12,6 @@ module.exports = {
     compound: 'Compound contracts',
     coinGecko: 'CoinGecko API',
     poolTogether: 'PoolTogether contracts',
+    defiPulse: 'DeFi Pulse API',
   },
 };

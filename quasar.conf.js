@@ -84,9 +84,11 @@ module.exports = function (ctx) {
       env: ctx.dev
         ? { // so on dev we'll have these environment variables
           ETHERSCAN_API_KEY: JSON.stringify(process.env.ETHERSCAN_API_KEY),
+          CONCOURSE_API_KEY: JSON.stringify(process.env.CONCOURSE_API_KEY),
         }
         : { // and on build (production) we'll have these:
           ETHERSCAN_API_KEY: JSON.stringify(process.env.ETHERSCAN_API_KEY),
+          CONCOURSE_API_KEY: JSON.stringify(process.env.CONCOURSE_API_KEY),
         },
     },
 

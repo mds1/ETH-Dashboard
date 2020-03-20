@@ -30,6 +30,27 @@ export default function () {
         cDAI: { },
         cUSDC: { },
       },
+      poolTogether: {
+        dai: {
+          totalEarningInterest: undefined,
+          eligibleTickets: undefined,
+          openTickets: undefined,
+          sponsored: undefined,
+          estimatedPrize: undefined,
+          prizeDrawingDate: undefined,
+        },
+      },
+      defiPulse: {
+        tvl: {
+          usd: undefined,
+          eth: undefined,
+        },
+        dominance: {
+          name: undefined,
+          value: undefined,
+          percent: undefined,
+        },
+      },
     },
   };
 }
