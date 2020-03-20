@@ -20,7 +20,7 @@
           :src="`statics/logos/pooltogether.png`"
         >
         <div class="col-auto main-header">
-          PoolTogether Next Prize
+          PoolTogether Estimated Prize
         </div>
       </q-card-section>
 

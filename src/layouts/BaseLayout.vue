@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'BaseLayout',
@@ -190,10 +190,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      allComponents: 'prefs/allComponents',
-    }),
-
     ...mapState({
       blockNumber: (state) => state.main.data.blockNumber,
       networkId: (state) => state.main.data.networkId,
