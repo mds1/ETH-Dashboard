@@ -6,7 +6,7 @@ const addresses = require('src/addresses.json');
 const pt = require('pooltogetherjs');
 const poolTogetherDrawDates = require('src/utils/poolTogetherDrawDates');
 
-const { utils } = ethers;
+const { utils, constants } = ethers;
 const RAY = utils.bigNumberify('1000000000000000000000000000');
 
 // =================================================================================================
@@ -29,8 +29,13 @@ const getFee = (base, ilk) => {
 };
 
 const etherscanEthSupply = async () => {
-  const json = await jsonFetch('https://api.etherscan.io/api?action=ethsupply&module=stats&apikey=N5TICDBVG4MHDS7CGPJ9MHXRYC1Y84963N');
-  return json.result;
+  try {
+    const json = await jsonFetch(`https://api.etherscan.io/api?action=ethsupply&module=stats&apikey=${process.env.ETHERSCAN_API_KEY}`);
+    return json.result;
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    return constants.Zero;
+  }
 };
 
 const getOSMPrice = async (osm, position) => {
@@ -39,8 +44,19 @@ const getOSMPrice = async (osm, position) => {
 };
 
 const getMarketPrices = async () => {
-  const json = await jsonFetch('https://api.coingecko.com/api/v3/simple/price?ids=maker%2Cdai%2Cusd-coin%2Cethereum%2Cbasic-attention-token&vs_currencies=usd');
-  return json;
+  try {
+    const json = await jsonFetch('https://api.coingecko.com/api/v3/simple/price?ids=maker%2Cdai%2Cusd-coin%2Cethereum%2Cbasic-attention-token&vs_currencies=usd');
+    return json;
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    return {
+      'basic-attention-token': { usd: undefined },
+      dai: { usd: undefined },
+      ethereum: { usd: undefined },
+      maker: { usd: undefined },
+      'usd-coin': { usd: undefined },
+    };
+  }
 };
 
 const getMKRAnnualBurn = (ethIlk, ethFee, batIlk, batFee, saiSupply, scdFee, savingsDai, potFee, mkrPrice) => {
@@ -68,8 +84,38 @@ const getMKRAnnualBurn = (ethIlk, ethFee, batIlk, batFee, saiSupply, scdFee, sav
 // =================================================================================================
 
 const getGasPrices = async () => {
-  const json = await jsonFetch('https://ethgasstation.info/json/ethgasAPI.json');
-  return json;
+  try {
+    const json = await jsonFetch('https://ethgasstation.info/json/ethgasAPI.json');
+    return json;
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    return {
+      fast: undefined,
+      fastest: undefined,
+      safeLow: undefined,
+      average: undefined,
+      block_time: undefined,
+      blockNum: undefined,
+      speed: undefined,
+      safeLowWait: undefined,
+      avgWait: undefined,
+      fastWait: undefined,
+      fastestWait: undefined,
+      gasPriceRange: undefined,
+    };
+  }
+};
+
+// eslint-disable-next-line
+const getCurveData = async () => {
+  const compound = await jsonFetch('https://compound.curve.fi/stats.json');
+  console.log('compound ', compound);
+  const usdt = await jsonFetch('https://usdt.curve.fi/stats.json');
+  console.log('usdt ', usdt);
+  const y = await jsonFetch('https://y.curve.fi/stats.json');
+  console.log('y ', y);
+  const busd = await jsonFetch('https://busd.curve.fi/stats.json');
+  console.log('busd ', busd);
 };
 
 
@@ -193,6 +239,12 @@ export function setContracts({ commit }, contracts) {
 export async function poll({ commit }) {
   // eslint-disable-next-line
   console.log('Polling blockchain for latest data...');
+
+  // try {
+  //   await getCurveData();
+  // } catch (err) {
+  //   console.error(err);
+  // }
 
   // Configure multicall queries
   const p1 = multi.aggregate([

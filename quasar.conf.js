@@ -81,6 +81,13 @@ module.exports = function (ctx) {
           },
         });
       },
+      env: ctx.dev
+        ? { // so on dev we'll have these environment variables
+          ETHERSCAN_API_KEY: JSON.stringify(process.env.ETHERSCAN_API_KEY),
+        }
+        : { // and on build (production) we'll have these:
+          ETHERSCAN_API_KEY: JSON.stringify(process.env.ETHERSCAN_API_KEY),
+        },
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
