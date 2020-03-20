@@ -9,28 +9,24 @@
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(price, true, 0, 0) }}
+          {{ formatPercent(dailyRate, false, 2) }} APY
         </div>
       </q-card-section>
 
       <q-card-section class="main-card-section row justify-center items-center">
         <img
-          alt="DeFi Pulse logo"
+          alt="Curve logo"
           class="col-auto q-mr-sm main-header-image"
-          src="statics/logos/defipulse.png"
+          src="statics/logos/curve.png"
         >
         <div class="col-auto main-header">
-          DeFi Total Value Locked, {{ currencySymbol.toUpperCase() }}
+          Curve {{ poolName }} Liquidity<br>Provider Rate
         </div>
       </q-card-section>
 
-      <q-card-section
-        v-if="currencySymbol.toUpperCase() === 'USD'"
-        class="main-card-section"
-      >
+      <q-card-section class="main-card-section">
         <div class="text-caption text-center q-mt-sm">
-          {{ dominantName }} Dominance: {{ formatPercent(dominantPercent, false, 2) }}
-          ({{ formatCurrency(dominantValue, true, 0, 0) }})
+          {{ formatPercent(weeklyRate, false, 2) }} Weekly APY
         </div>
       </q-card-section>
     </q-card>
@@ -42,7 +38,7 @@ import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
 
 export default {
-  name: 'TemplateDefiPulseTvl',
+  name: 'TemplateCurveApy',
 
   mixins: [mixinHelpers],
 
@@ -52,7 +48,7 @@ export default {
       required: true,
     },
 
-    currencySymbol: {
+    poolName: {
       type: String,
       required: true,
     },
@@ -60,12 +56,12 @@ export default {
 
   computed: {
     ...mapState({
-      price(state) {
-        return state.main.data.defiPulse.tvl[this.currencySymbol.toLowerCase()];
+      dailyRate(state) {
+        return state.main.data.curve[this.poolName.toLowerCase()].dailyApr;
       },
-      dominantName: (state) => state.main.data.defiPulse.dominance.name,
-      dominantValue: (state) => state.main.data.defiPulse.dominance.value,
-      dominantPercent: (state) => state.main.data.defiPulse.dominance.percent,
+      weeklyRate(state) {
+        return state.main.data.curve[this.poolName.toLowerCase()].weeklyApr;
+      },
     }),
   },
 };

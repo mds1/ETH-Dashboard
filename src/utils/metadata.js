@@ -5,6 +5,7 @@ module.exports = {
     ethNetwork: 'Ethereum Network Stats',
     tokenPrices: 'Token Prices',
     poolTogether: 'PoolTogether Stats',
+    curve: 'Curve Stats',
   },
   sources: {
     egsApi: 'ETH Gas Station API',
@@ -13,5 +14,6 @@ module.exports = {
     coinGecko: 'CoinGecko API',
     poolTogether: 'PoolTogether contracts',
     defiPulse: 'DeFi Pulse API',
+    curve: 'Curve Contracts',
   },
 };

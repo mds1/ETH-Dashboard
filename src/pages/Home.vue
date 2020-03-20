@@ -67,6 +67,11 @@ import DshCompoundCusdcSupply from 'components/DshCompoundCusdcSupply';
 // PoolTogether Stats
 import DshPoolTogetherDaiPool from 'components/DshPoolTogetherDaiPool';
 import DshPoolTogetherDaiPrize from 'components/DshPoolTogetherDaiPrize';
+// Curve Stats
+import DshCurveCompoundApy from 'components/DshCurveCompoundApy';
+import DshCurveUsdtApy from 'components/DshCurveUsdtApy';
+import DshCurveYtokenApy from 'components/DshCurveYtokenApy';
+import DshCurveBusdApy from 'components/DshCurveBusdApy';
 
 export default {
   name: 'Home',
@@ -107,6 +112,11 @@ export default {
     // Compound Stats
     DshPoolTogetherDaiPool,
     DshPoolTogetherDaiPrize,
+    // Curve Stats
+    DshCurveCompoundApy,
+    DshCurveUsdtApy,
+    DshCurveYtokenApy,
+    DshCurveBusdApy,
   },
 
   data() {

@@ -8,7 +8,7 @@
   "author": "mds <17163988+mds1@users.noreply.github.com>",
   "private": true,
   "scripts": {
-    "dev": "npx quasar dev",
+    "dev": "source .env && npx quasar dev",
     "build": "git push && source .env && npx quasar build && npx firebase deploy",
     "lint": "eslint --ext .js,.vue src --fix",
     "test": "echo \"No test specified\" && exit 0"

@@ -107,15 +107,20 @@ const getGasPrices = async () => {
 };
 
 // eslint-disable-next-line
-const getCurveData = async () => {
-  const compound = await jsonFetch('https://compound.curve.fi/stats.json');
-  console.log('compound ', compound);
-  const usdt = await jsonFetch('https://usdt.curve.fi/stats.json');
-  console.log('usdt ', usdt);
-  const y = await jsonFetch('https://y.curve.fi/stats.json');
-  console.log('y ', y);
-  const busd = await jsonFetch('https://busd.curve.fi/stats.json');
-  console.log('busd ', busd);
+const getCurveData = async (name) => {
+  try {
+    const json = await jsonFetch(`https://${name}.curve.fi/stats.json`);
+    return {
+      dailyApr: json.daily_apr * 100,
+      weeklyApr: json.weekly_apr * 100,
+    };
+  } catch (err) {
+    console.error(err); // eslint-disable-line no-console
+    return {
+      dailyApr: undefined,
+      weeklyApr: undefined,
+    };
+  }
 };
 
 const getDefiPulseData = async () => {
@@ -271,12 +276,6 @@ export async function poll({ commit }, slowPollData = undefined) {
   // eslint-disable-next-line
   console.log('Executing poll for latest data...');
 
-  // try {
-  //   await getCurveData();
-  // } catch (err) {
-  //   console.error(err);
-  // }
-
   // Configure multicall queries
   const p1 = multi.aggregate([
     // Start with all queries from https://daistats.com/
@@ -350,6 +349,7 @@ export async function poll({ commit }, slowPollData = undefined) {
     [addresses.POOL_DAI, poolDai.interface.functions.committedSupply.encode([])], // eligible tickets
     [addresses.POOL_DAI, poolDai.interface.functions.openSupply.encode([])], // open tickets
   ]);
+
 
   const p2 = etherscanEthSupply();
   const p3 = getOSMPrice(addresses.PIP_ETH, POSITION_NXT);
@@ -600,9 +600,19 @@ export async function poll({ commit }, slowPollData = undefined) {
 export async function pollSlow({ commit }) {
   console.log('Executing slow poll for latest data...'); // eslint-disable-line no-console
   const p1 = getDefiPulseData();
-  const [defiPulse] = await Promise.all([p1]);
+  const p2 = await getCurveData('compound');
+  const p3 = await getCurveData('usdt');
+  const p4 = await getCurveData('y');
+  const p5 = await getCurveData('busd');
+  const [defiPulse, curveCompound, curveUsdt, curveY, curveBusd] = await Promise.all([p1, p2, p3, p4, p5]);
   const data = {
     defiPulse,
+    curve: {
+      compound: curveCompound,
+      usdt: curveUsdt,
+      ytoken: curveY,
+      busd: curveBusd,
+    },
   };
   poll({ commit }, data);
 }

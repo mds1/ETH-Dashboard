@@ -51,6 +51,12 @@ export default function () {
           percent: undefined,
         },
       },
+      curve: {
+        compound: { dailyApr: undefined, weeklyApr: undefined },
+        usdt: { dailyApr: undefined, weeklyApr: undefined },
+        ytoken: { dailyApr: undefined, weeklyApr: undefined },
+        busd: { dailyApr: undefined, weeklyApr: undefined },
+      },
     },
   };
 }
