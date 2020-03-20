@@ -25,7 +25,7 @@
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
+        <div class="text-caption text-center q-mt-sm">
           Next oracle price: {{ formatCurrency(ethPriceNxt, true, 2, 2) }}
         </div>
       </q-card-section>

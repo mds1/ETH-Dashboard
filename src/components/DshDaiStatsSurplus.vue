@@ -20,7 +20,7 @@
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
+        <div class="text-caption text-center q-mt-sm">
           Surplus Buffer: {{ formatCurrency(surplusBuffer, false, 0, 0) }}
         </div>
         <div class="text-caption text-center">

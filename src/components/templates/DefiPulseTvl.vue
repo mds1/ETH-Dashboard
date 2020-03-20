@@ -28,7 +28,7 @@
         v-if="currencySymbol.toUpperCase() === 'USD'"
         class="main-card-section"
       >
-        <div class="text-caption text-center">
+        <div class="text-caption text-center q-mt-sm">
           {{ dominantName }} Dominance: {{ formatPercent(dominantPercent, false, 2) }}
           ({{ formatCurrency(dominantValue, true, 0, 0) }})
         </div>

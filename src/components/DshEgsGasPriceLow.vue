@@ -20,7 +20,7 @@
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="text-caption text-center">
+        <div class="text-caption text-center q-mt-sm">
           {{ time }} minute wait
         </div>
         <div class="text-caption text-center">
