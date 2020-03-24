@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page style="padding:0 0.5rem 2rem;">
     <!-- MAIN CONTENT -->
     <div
       v-if="!blockNumber"

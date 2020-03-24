@@ -74,7 +74,7 @@
       class="q-mx-md q-mt-md"
       style="color: #000000; background-color: rgba(0,0,0,0)"
     >
-      <div class="row justify-between items-center">
+      <div class="row justify-between items-center no-wrap">
         <div class="col-auto">
           <!-- LOGO AND TITLE -->
           <div
@@ -83,7 +83,7 @@
           >
             <img
               alt="Ethereum logo"
-              class="q-mx-md"
+              class="q-ml-md"
               src="statics/app-logo-128x128.png"
               style="max-width: 50px;"
             >
@@ -94,12 +94,15 @@
         </div>
         <!-- AUTO-UPDATE NOTICE -->
         <div
+          v-if="$q.screen.gt.xs"
           class="col-auto dark-toggle text-center text-caption text-italic"
-          style="max-width:625px"
+          style="max-width:750px"
         >
-          Data automatically updates each block. Use the icons to the right
-          to configure settings. Components can be dragged to change the order.
-          Visible components will be saved between visits, but order changes will not.
+          Data automatically updates each block.
+          <span v-if="$q.screen.gt.sm">
+            Use the icons to the right to configure settings.
+          </span>
+          Drag components to change the order.
         </div>
         <!-- BLOCK NUMBER AND SETTINGS -->
         <div class="col-auto q-mr-md">
@@ -107,9 +110,7 @@
             Block: {{ blockNumber }}
           </div>
 
-          <div
-            class="row justify-end q-mt-xs"
-          >
+          <div class="row justify-end q-mt-xs">
             <q-icon
               v-if="!$q.dark.isActive"
               class="col-auto dark-toggle"
@@ -136,6 +137,20 @@
     </q-header>
     <!-- MAIN CONTENT -->
     <q-page-container>
+      <div
+        v-if="!$q.screen.gt.xs"
+        class="text-center text-caption text-italic q-mt-lg q-mx-md"
+      >
+        Data automatically updates each block. Drag components to change the order.
+      </div>
+      <div class="text-center text q-mt-xl q-mx-md">
+        Enjoying your dashboard? Please consider donating $1 to our
+        <a
+          href="https://gitcoin.co/grants/580/eth-dashboard-build-your-own-ethereum-data-dashboa?tab=description"
+          target="_blank"
+          class="hyperlink"
+        >Gitcoin grant</a>
+      </div>
       <router-view />
     </q-page-container>
     <!-- FOOTER -->
