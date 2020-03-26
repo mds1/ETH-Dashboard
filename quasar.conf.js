@@ -111,14 +111,20 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxOptions: {
+        // Available settings for GenerateSW can be found at the link below
+        // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-webpack-plugin.GenerateSW#GenerateSW
+        // Other source: https://forum.vuejs.org/t/vue-cli-3-project-with-pwa-not-busting-cache-on-new-builds/50252/6
+        skipWaiting: true, // forces SW to activate immediately, instead of waiting for existing clients to close.
+        clientsClaim: true, // SW should start controlling any existing clients as soon as it activates
+      }, // only for GenerateSW
       manifest: {
         name: 'ETH Dashboard',
         short_name: 'ETH Dashboard',
-        description: 'MKR Governance Auction',
+        description: 'Build your own ETH Dashboard',
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#ffffff',
+        background_color: '#000000',
         theme_color: '#027be3',
         icons: [
           {
