@@ -8,7 +8,16 @@
       </q-card-section>
 
       <q-card-section class="main-card-section">
-        <div class="main-value">
+        <div
+          v-if="tokenSymbol === 'DaiUsdc'"
+          class="main-value"
+        >
+          {{ formatCurrency(daiInUsdc, true, 2, 4) }}
+        </div>
+        <div
+          v-else
+          class="main-value"
+        >
           {{ formatCurrency(price, true, 2, 4) }}
         </div>
       </q-card-section>
@@ -19,7 +28,16 @@
           class="col-auto q-mr-sm main-header-image"
           :src="`statics/logos/${tokenSymbol.toLowerCase()}.png`"
         >
-        <div class="col-auto main-header">
+        <div
+          v-if="tokenSymbol === 'DaiUsdc'"
+          class="col-auto main-header"
+        >
+          DAI-USDC Price
+        </div>
+        <div
+          v-else
+          class="col-auto main-header"
+        >
           {{ tokenSymbol }} Price
         </div>
       </q-card-section>
@@ -53,7 +71,13 @@ export default {
       price(state) {
         return state.main.data.tokenPrices[this.tokenSymbol.toLowerCase()];
       },
+      daiPrice: (state) => state.main.data.tokenPrices.dai,
+      usdcPrice: (state) => state.main.data.tokenPrices.usdc,
     }),
+
+    daiInUsdc() {
+      return this.daiPrice / this.usdcPrice;
+    },
   },
 };
 </script>

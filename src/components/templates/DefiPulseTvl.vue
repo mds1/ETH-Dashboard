@@ -9,7 +9,7 @@
 
       <q-card-section class="main-card-section">
         <div class="main-value">
-          {{ formatCurrency(price, true, 0, 0) }}
+          {{ formatCurrency(amount, showDollarSign, 0, 0) }}
         </div>
       </q-card-section>
 
@@ -25,12 +25,20 @@
       </q-card-section>
 
       <q-card-section
-        v-if="currencySymbol.toUpperCase() === 'USD'"
         class="main-card-section"
       >
-        <div class="text-caption text-center q-mt-sm">
+        <div
+          v-if="currencySymbol.toUpperCase() === 'USD'"
+          class="text-caption text-center q-mt-sm"
+        >
           {{ dominantName }} Dominance: {{ formatPercent(dominantPercent, false, 2) }}
           ({{ formatCurrency(dominantValue, true, 0, 0) }})
+        </div>
+        <div
+          v-else
+          class="text-caption text-center q-mt-sm"
+        >
+          {{ formatPercent(ethInDefiPercent, false, 2) }} of total ETH supply
         </div>
       </q-card-section>
     </q-card>
@@ -60,13 +68,22 @@ export default {
 
   computed: {
     ...mapState({
-      price(state) {
+      amount(state) {
         return state.main.data.defiPulse.tvl[this.currencySymbol.toLowerCase()];
       },
       dominantName: (state) => state.main.data.defiPulse.dominance.name,
       dominantValue: (state) => state.main.data.defiPulse.dominance.value,
       dominantPercent: (state) => state.main.data.defiPulse.dominance.percent,
+      ethSupply: (state) => state.main.data.ethSupply,
     }),
+
+    showDollarSign() {
+      return this.currencySymbol.toLowerCase() === 'usd';
+    },
+
+    ethInDefiPercent() {
+      return 100 * (this.amount / this.ethSupply);
+    },
   },
 };
 </script>

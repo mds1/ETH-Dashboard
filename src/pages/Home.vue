@@ -46,6 +46,7 @@ import DshDaiStatsSurplus from 'components/DshDaiStatsSurplus';
 import DshDaiStatsDaiFromUsdc from 'components/DshDaiStatsDaiFromUsdc';
 // Token Prices
 import DshCoinGeckoPriceDai from 'components/DshCoinGeckoPriceDai';
+import DshCoinGeckoPriceDaiUsdc from 'components/DshCoinGeckoPriceDaiUsdc';
 import DshCoinGeckoPriceMkr from 'components/DshCoinGeckoPriceMkr';
 import DshCoinGeckoPriceUsdc from 'components/DshCoinGeckoPriceUsdc';
 import DshCoinGeckoPriceEth from 'components/DshCoinGeckoPriceEth';
@@ -56,6 +57,8 @@ import DshEgsGasPriceHighest from 'components/DshEgsGasPriceHighest';
 import DshEgsGasPriceHigh from 'components/DshEgsGasPriceHigh';
 import DshEgsGasPriceMedium from 'components/DshEgsGasPriceMedium';
 import DshEgsGasPriceLow from 'components/DshEgsGasPriceLow';
+//   ETH Supply
+import DshEtherscanEthSupply from 'components/DshEtherscanEthSupply';
 //   Total Value Locked in DeFi
 import DshDefiPulseTvlUsd from 'components/DshDefiPulseTvlUsd';
 import DshDefiPulseTvlEth from 'components/DshDefiPulseTvlEth';
@@ -92,6 +95,7 @@ export default {
     // Token Prices
     DshCoinGeckoPriceBat,
     DshCoinGeckoPriceDai,
+    DshCoinGeckoPriceDaiUsdc,
     DshCoinGeckoPriceEth,
     DshCoinGeckoPriceMkr,
     DshCoinGeckoPriceUsdc,
@@ -101,6 +105,8 @@ export default {
     DshEgsGasPriceHigh,
     DshEgsGasPriceMedium,
     DshEgsGasPriceLow,
+    //   ETH Supply
+    DshEtherscanEthSupply,
     //   Total Value Locked in DeFi
     DshDefiPulseTvlUsd,
     DshDefiPulseTvlEth,

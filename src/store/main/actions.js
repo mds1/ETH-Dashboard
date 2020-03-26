@@ -520,7 +520,6 @@ export async function poll({ commit }, slowPollData = undefined) {
     ],
     daiSupply: utils.formatEther(daiSupply[0]),
     saiSupply: utils.formatEther(saiSupply[0]),
-    ethSupply: utils.formatEther(ethSupply),
     batSupply: utils.formatEther(batSupply[0]),
     usdcSupply: utils.formatUnits(usdcSupply[0], 6),
     ethLocked: utils.formatEther(ethLocked[0]),
@@ -582,6 +581,7 @@ export async function poll({ commit }, slowPollData = undefined) {
   const data = {
     networkId: 1,
     blockNumber: blockNumber.toString(),
+    ethSupply: utils.formatEther(ethSupply),
     daiStats,
     egsGasPrices,
     compoundStats,
