@@ -22,3 +22,20 @@ export function setData(state, data) {
     state.data = data;
   }
 }
+
+/**
+ * @param {*} data Object containing `token` and `prices` fields
+ *   `token` must be the lowercase abbreviate, e.g. eth or mkr
+ *   `prices` must be an array of arrays where the first element in each
+*     array is the timestamp and the second is the price
+ */
+export function setTokenPriceHistory(state, data) {
+  const tokenName = data.token;
+  const { prices } = data;
+  state.data.tokenPriceHistory[tokenName] = [];
+  try {
+    Object.assign(state.data.tokenPriceHistory[tokenName], prices);
+  } catch {
+    state.data.tokenPriceHistory[tokenName] = prices;
+  }
+}

@@ -6,6 +6,8 @@
 
 <script>
 import { mapState } from 'vuex';
+
+// Numbers ------------------------------------------------------------------------
 // Dai/Maker Stats
 import DshDaiStatsTotalDai from 'components/DshDaiStatsTotalDai';
 import DshDaiStatsBatPrice from 'components/DshDaiStatsBatPrice';
@@ -48,6 +50,13 @@ import DshCurveUsdtApy from 'components/DshCurveUsdtApy';
 import DshCurveYtokenApy from 'components/DshCurveYtokenApy';
 import DshCurveBusdApy from 'components/DshCurveBusdApy';
 
+// Figures ------------------------------------------------------------------------
+import DshCoinGeckoPriceHistoryBat from 'components/DshCoinGeckoPriceHistoryBat';
+import DshCoinGeckoPriceHistoryDai from 'components/DshCoinGeckoPriceHistoryDai';
+import DshCoinGeckoPriceHistoryEth from 'components/DshCoinGeckoPriceHistoryEth';
+import DshCoinGeckoPriceHistoryMkr from 'components/DshCoinGeckoPriceHistoryMkr';
+import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsdc';
+
 export default {
   name: 'App',
 
@@ -57,6 +66,7 @@ export default {
 
     /* eslint-disable vue/no-unused-components */
 
+    // Numbers ------------------------------------------------------------------------
     // Dai/Maker Stats
     DshDaiStatsTotalDai,
     DshDaiStatsBatPrice,
@@ -74,6 +84,7 @@ export default {
     DshCoinGeckoPriceEth,
     DshCoinGeckoPriceMkr,
     DshCoinGeckoPriceUsdc,
+
     // Ethereum Network Stats
     //   Gas Prices
     DshEgsGasPriceHighest,
@@ -98,6 +109,13 @@ export default {
     DshCurveUsdtApy,
     DshCurveYtokenApy,
     DshCurveBusdApy,
+    // Figures ------------------------------------------------------------------------
+    // Historical Token Prices
+    DshCoinGeckoPriceHistoryBat,
+    DshCoinGeckoPriceHistoryDai,
+    DshCoinGeckoPriceHistoryEth,
+    DshCoinGeckoPriceHistoryMkr,
+    DshCoinGeckoPriceHistoryUsdc,
   },
 
   computed: {
@@ -110,6 +128,7 @@ export default {
     // Check local storage for a dark mode setting
     const isDark = this.$q.localStorage.getItem('isDark');
     this.$q.dark.set(isDark);
+    this.$store.dispatch('prefs/setDarkModeStatus', isDark);
 
     // Get list of all components
     const allComponents = this.$options.components; // object
@@ -139,7 +158,7 @@ export default {
     this.provider.on('block', () => this.$store.dispatch('main/poll'));
     setInterval(() => {
       this.$store.dispatch('main/pollSlow');
-    }, 5 * 60 * 1000); // every 5 minutes
+    }, 30 * 60 * 1000); // every 30 minutes
   },
 };
 </script>

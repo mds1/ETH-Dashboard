@@ -23,10 +23,31 @@
               v-for="(component,index) in allComponents"
               :key="component.name"
             >
+              <!-- Component Category header -->
+              <div v-if="index === 0">
+                <h4 class="text-secondary q-mt-md">
+                  Instantaneous Metrics
+                </h4>
+                <div class="text-italic q-mt-sm">
+                  This data consists of single numbers representing current, live data
+                </div>
+              </div>
+              <div
+                v-if="index !== 0
+                  && component.data.isFigureOrHistorical
+                  && !allComponents[index-1].data.isFigureOrHistorical"
+              >
+                <h4 class="text-secondary q-mt-md">
+                  Figures and Historical Data
+                </h4>
+                <div class="text-italic q-mt-sm">
+                  This data consists of plots, charts, figures, and historical data
+                </div>
+              </div>
               <!-- Section header -->
               <h5
-                v-if="index == 0 || component.data.category !== allComponents[index-1].data.category "
-                class="text-primary q-mt-md"
+                v-if="index === 0 || component.data.category !== allComponents[index-1].data.category"
+                class="text-primary text-bold q-mt-md"
               >
                 {{ component.data.category }}
               </h5>
@@ -224,6 +245,7 @@ export default {
       const isDark = !this.$q.dark.isActive;
       this.$q.dark.set(isDark);
       this.$q.localStorage.set('isDark', isDark);
+      this.$store.dispatch('prefs/setDarkModeStatus', isDark);
     },
 
     showSettings() {

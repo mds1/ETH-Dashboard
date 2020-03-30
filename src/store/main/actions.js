@@ -2,6 +2,7 @@ import { provider } from 'boot/ethereum';
 import { ethers } from 'ethers';
 import { date } from 'quasar';
 
+const axios = require('axios');
 const addresses = require('src/addresses.json');
 const pt = require('pooltogetherjs');
 const poolTogetherDrawDates = require('src/utils/poolTogetherDrawDates');
@@ -615,4 +616,21 @@ export async function pollSlow({ commit }) {
     },
   };
   poll({ commit }, data);
+}
+
+
+/**
+ * @notice Get CoinGecko historical prices
+ */
+export async function getTokenHistoricalPrices({ commit }, payload) {
+  const { tokenName, tokenSymbol, days } = payload;
+  const url = `https://api.coingecko.com/api/v3/coins/${tokenName}/market_chart?vs_currency=usd&days=${days}`;
+  const response = await axios.get(url);
+
+  const data = {
+    token: tokenSymbol.toLowerCase(),
+    prices: response.data.prices,
+  };
+
+  commit('setTokenPriceHistory', data);
 }

@@ -13,6 +13,13 @@ export default function () {
         mkr: undefined,
         usdc: undefined,
       },
+      tokenPriceHistory: {
+        bat: [],
+        dai: [],
+        eth: [],
+        mkr: [],
+        usdc: [],
+      },
       egsGasPrices: {
         fast: undefined,
         fastest: undefined,

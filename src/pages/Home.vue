@@ -34,6 +34,8 @@
 <script>
 import { mapState } from 'vuex';
 import draggable from 'vuedraggable';
+
+// Numbers ------------------------------------------------------------------------
 // Dai/Maker Stats
 import DshDaiStatsTotalDai from 'components/DshDaiStatsTotalDai';
 import DshDaiStatsBatPrice from 'components/DshDaiStatsBatPrice';
@@ -76,12 +78,21 @@ import DshCurveUsdtApy from 'components/DshCurveUsdtApy';
 import DshCurveYtokenApy from 'components/DshCurveYtokenApy';
 import DshCurveBusdApy from 'components/DshCurveBusdApy';
 
+// Figures ------------------------------------------------------------------------
+import DshCoinGeckoPriceHistoryBat from 'components/DshCoinGeckoPriceHistoryBat';
+import DshCoinGeckoPriceHistoryDai from 'components/DshCoinGeckoPriceHistoryDai';
+import DshCoinGeckoPriceHistoryEth from 'components/DshCoinGeckoPriceHistoryEth';
+import DshCoinGeckoPriceHistoryMkr from 'components/DshCoinGeckoPriceHistoryMkr';
+import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsdc';
+
+
 export default {
   name: 'Home',
 
   components: {
     draggable,
     /* eslint-disable vue/no-unused-components */
+    // Numbers ------------------------------------------------------------------------
     // Dai/Maker Stats
     DshDaiStatsTotalDai,
     DshDaiStatsBatPrice,
@@ -99,6 +110,7 @@ export default {
     DshCoinGeckoPriceEth,
     DshCoinGeckoPriceMkr,
     DshCoinGeckoPriceUsdc,
+
     // Ethereum Network Stats
     //   Gas Prices
     DshEgsGasPriceHighest,
@@ -123,6 +135,13 @@ export default {
     DshCurveUsdtApy,
     DshCurveYtokenApy,
     DshCurveBusdApy,
+    // Figures ------------------------------------------------------------------------
+    // Historical Token Prices
+    DshCoinGeckoPriceHistoryBat,
+    DshCoinGeckoPriceHistoryDai,
+    DshCoinGeckoPriceHistoryEth,
+    DshCoinGeckoPriceHistoryMkr,
+    DshCoinGeckoPriceHistoryUsdc,
   },
 
   data() {

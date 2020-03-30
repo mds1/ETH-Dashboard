@@ -17,6 +17,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "ethers": "^4.0.45",
+    "lodash": "^4.17.15",
+    "plotly.js-dist": "^1.52.3",
     "pooltogetherjs": "pooltogether/pooltogetherjs",
     "quasar": "^1.0.0",
     "vuedraggable": "^2.23.2"

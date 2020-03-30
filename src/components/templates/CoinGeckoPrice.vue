@@ -66,6 +66,12 @@ export default {
     },
   },
 
+  // watch: {
+  //   isDark() {
+  //     this.generateFigure();
+  //   },
+  // },
+
   computed: {
     ...mapState({
       price(state) {

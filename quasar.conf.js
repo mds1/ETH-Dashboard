@@ -10,6 +10,7 @@ module.exports = function (ctx) {
     boot: [
       'axios',
       'ethereum',
+      'plotly',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

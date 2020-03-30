@@ -70,3 +70,10 @@ export function setComponentSelections({ commit }, components) {
   LocalStorage.set('selectedComponents', components);
   commit('setComponentSelections', components);
 }
+
+/**
+ * @notice Sets dark mode status in store
+ */
+export function setDarkModeStatus({ commit }, isDark) {
+  commit('setDarkModeStatus', isDark);
+}
