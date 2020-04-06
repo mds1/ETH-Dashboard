@@ -1,0 +1,1161 @@
+[
+  {
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "isERC20": false,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitcoin.de",
+      "bitfinex",
+      "bitstamp",
+      "bittrex",
+      "coinbase",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "luno",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "isERC20": false,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "LTC",
+    "name": "Litecoin",
+    "isERC20": false,
+    "exchanges": ["aggregated"]
+  },
+  {
+    "symbol": "BCH",
+    "name": "Bitcoin Cash",
+    "isERC20": false,
+    "exchanges": ["aggregated"]
+  },
+  {
+    "symbol": "MKR",
+    "name": "Maker",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bitfinex",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "BAT",
+    "name": "BAT",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "CRO",
+    "name": "Crypto.com Chain",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "bithumb",
+      "bittrex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "OMG",
+    "name": "OmiseGO",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "LINK",
+    "name": "ChainLink Token",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "HOT",
+    "name": "Holo",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "coinex",
+      "hitbtc",
+      "huobi"
+    ]
+  },
+  {
+    "symbol": "ZRX",
+    "name": "ZRX",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "NPXS",
+    "name": "Pundi X Token",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "AOA",
+    "name": "Aurora",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "HPT",
+    "name": "HuobiPoolToken",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "HT",
+    "name": "HuobiToken",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "okex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "ENJ",
+    "name": "EnjinCoin",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "KCS",
+    "name": "Kucoin Shares",
+    "isERC20": true,
+    "exchanges": ["aggregated", "kucoin"]
+  },
+  {
+    "symbol": "SAI",
+    "name": "Single Collateral DAI",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "WTC",
+    "name": "Walton",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "cobinhood",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "XIN",
+    "name": "Mixin",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "SNT",
+    "name": "StatusNetwork",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "MCO",
+    "name": "Crypto.com",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "MXM",
+    "name": "Maximine Coin",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bittrex",
+      "coinex",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "GNT",
+    "name": "Golem",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "DGD",
+    "name": "DGD",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bittrex",
+      "cobinhood",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "WAX",
+    "name": "WAX Token",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bitfinex",
+      "bittrex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin"
+    ]
+  },
+  {
+    "symbol": "ELF",
+    "name": "ELF",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "PPT",
+    "name": "Populous",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bithumb",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "ORBS",
+    "name": "Orbs",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "MANA",
+    "name": "Decentraland",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "DENT",
+    "name": "DENT",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "gate.io",
+      "hitbtc",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "SAN",
+    "name": "SAN",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "cobinhood",
+      "hitbtc",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "RLC",
+    "name": "RLC",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kraken",
+      "kucoin",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "R",
+    "name": "Revain",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "LOOM",
+    "name": "Loom",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "LRC",
+    "name": "LoopringCoin V2",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "ABT",
+    "name": "ArcBlock",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "gate.io",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "QASH",
+    "name": "QASH",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "gate.io",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "POWR",
+    "name": "PowerLedger",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "NEXO",
+    "name": "Nexo",
+    "isERC20": true,
+    "exchanges": ["aggregated", "coinex", "hitbtc", "huobi"]
+  },
+  {
+    "symbol": "BNT",
+    "name": "Bancor",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "gate.io",
+      "hitbtc",
+      "kraken",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "KNC",
+    "name": "Kyber Network",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "GUSD",
+    "name": "Gemini dollar",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bitfinex",
+      "cobinhood",
+      "coinex",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "EURS",
+    "name": "STASIS EURS Token",
+    "isERC20": true,
+    "exchanges": ["aggregated", "bitfinex", "hitbtc", "okex"]
+  },
+  {
+    "symbol": "FUN",
+    "name": "FunFair",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kraken",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "LA",
+    "name": "LATOKEN",
+    "isERC20": true,
+    "exchanges": ["aggregated", "bigone", "coinex", "hitbtc", "kucoin", "okex"]
+  },
+  {
+    "symbol": "POLY",
+    "name": "Polymath",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bithumb",
+      "bittrex",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "BRD",
+    "name": "Bread",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "cobinhood",
+      "coinex",
+      "hitbtc",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "IOTX",
+    "name": "IoTeX Network",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bittrex",
+      "gate.io",
+      "hitbtc",
+      "kucoin"
+    ]
+  },
+  {
+    "symbol": "STORJ",
+    "name": "Storj",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "ENG",
+    "name": "Enigma",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bittrex",
+      "coinex",
+      "hitbtc",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "LBA",
+    "name": "LibraToken",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "LAMB",
+    "name": "Lambda",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "BIX",
+    "name": "BIX Token",
+    "isERC20": true,
+    "exchanges": ["aggregated", "bibox", "bigone", "huobi"]
+  },
+  {
+    "symbol": "VERI",
+    "name": "Veritaseum",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "coinex", "gate.io", "hitbtc"]
+  },
+  {
+    "symbol": "PAY",
+    "name": "TenXPay",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "CVC",
+    "name": "Civic",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bigone",
+      "binance",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "QKC",
+    "name": "QuarkChain Token",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bithumb",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kucoin"
+    ]
+  },
+  {
+    "symbol": "MFT",
+    "name": "Mainframe Token",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "bithumb", "bittrex", "coinex"]
+  },
+  {
+    "symbol": "DGTX",
+    "name": "DigitexFutures",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gemini",
+      "hitbtc",
+      "kraken",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "TEL",
+    "name": "Telcoin",
+    "isERC20": true,
+    "exchanges": ["aggregated", "bibox", "binance", "hitbtc", "kucoin"]
+  },
+  {
+    "symbol": "AGI",
+    "name": "SingularityNET",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "bitfinex", "hitbtc", "kucoin"]
+  },
+  {
+    "symbol": "DRGN",
+    "name": "Dragon",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "hitbtc",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "CND",
+    "name": "Cindicator",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "bitfinex", "bittrex", "hitbtc"]
+  },
+  {
+    "symbol": "QNT",
+    "name": "Quant",
+    "isERC20": true,
+    "exchanges": ["aggregated", "bittrex", "coinex", "kraken"]
+  },
+  {
+    "symbol": "ANT",
+    "name": "Aragon",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "hitbtc"
+    ]
+  },
+  {
+    "symbol": "FSN",
+    "name": "Fusion",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "CELR",
+    "name": "CelerToken",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "gate.io", "hitbtc", "okex"]
+  },
+  {
+    "symbol": "UTK",
+    "name": "UTRUST",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "coinex",
+      "hitbtc",
+      "huobi",
+      "kucoin",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "MTL",
+    "name": "Metal",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "bithumb",
+      "bittrex",
+      "coinex",
+      "hitbtc",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "TOP",
+    "name": "TOP Network",
+    "isERC20": true,
+    "exchanges": ["aggregated", "huobi"]
+  },
+  {
+    "symbol": "WABI",
+    "name": "WaBi",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "kucoin"]
+  },
+  {
+    "symbol": "MDA",
+    "name": "Moeda Loyalty Points",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "gate.io",
+      "hitbtc",
+      "huobi",
+      "okex",
+      "poloniex"
+    ]
+  },
+  {
+    "symbol": "REN",
+    "name": "Republic",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "binance",
+      "cobinhood",
+      "coinex",
+      "hitbtc",
+      "huobi",
+      "okex"
+    ]
+  },
+  {
+    "symbol": "MATIC",
+    "name": "Matic Token",
+    "isERC20": true,
+    "exchanges": ["aggregated", "binance", "coinex", "hitbtc", "zb.com"]
+  },
+  {
+    "symbol": "USDT",
+    "name": "Tether USD",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bibox",
+      "bigone",
+      "binance",
+      "bitfinex",
+      "bittrex",
+      "cobinhood",
+      "coinex",
+      "gate.io",
+      "gemini",
+      "hitbtc",
+      "huobi",
+      "kraken",
+      "kucoin",
+      "okex",
+      "poloniex",
+      "zb.com"
+    ]
+  },
+  {
+    "symbol": "SNX",
+    "name": "Synthetix Network Token",
+    "isERC20": true,
+    "exchanges": [
+      "aggregated",
+      "bittrex",
+      "coinex",
+      "gate.io",
+      "kucoin",
+      "poloniex"
+    ]
+  }
+]

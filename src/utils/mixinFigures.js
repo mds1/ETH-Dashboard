@@ -90,6 +90,16 @@ export default {
         hoverlabel: {
           namelength: 100,
         },
+        legend: {
+          orientation: 'h',
+          font: {
+            color: this.fontColor,
+          },
+          // x: 0.55,
+          // y: 1,
+          // bgcolor: this.colors.background,
+          // borderwidth: 1,
+        },
       };
     },
   },

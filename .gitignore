@@ -1,7 +1,13 @@
 .env
+
 .firebase
+.firebase/*
 .firebaserc
 firebase.json
+firestore.indexes.json
+firestore.rules
+.runtimeconfig.json
+firebase*.log
 
 .DS_Store
 .thumbs.db

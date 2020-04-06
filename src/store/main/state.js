@@ -64,6 +64,14 @@ export default function () {
         ytoken: { dailyApr: undefined, weeklyApr: undefined },
         busd: { dailyApr: undefined, weeklyApr: undefined },
       },
+      addresses: {
+        totalAddresses: [],
+        activeAddresses: [],
+        sendingAddresses: [],
+        receivingAddresses: [],
+        newAddresses: [],
+        nonZeroAddresses: [],
+      },
     },
   };
 }

@@ -107,7 +107,7 @@ import mixinFigures from 'src/utils/mixinFigures';
 import mixinHelpers from 'src/utils/mixinHelpers';
 
 export default {
-  name: 'TemplateTimeSeriesPlot',
+  name: 'TemplateTimeSeriesPlotPriceHistory',
 
   mixins: [mixinFigures, mixinHelpers],
 
@@ -132,12 +132,24 @@ export default {
       required: true,
     },
 
-    y1label: {
+    y1Label: {
       type: String,
       required: true,
     },
 
-    y2label: {
+    y2Label: {
+      type: String,
+      required: false,
+      default: '',
+    },
+
+    y1Prefix: {
+      type: String,
+      required: false,
+      default: '',
+    },
+
+    y2Prefix: {
       type: String,
       required: false,
       default: '',
@@ -184,7 +196,7 @@ export default {
         y,
         type: 'scatter',
         mode: 'lines',
-        name: this.y1label,
+        name: this.y1Label,
         marker: {
           color: this.colors.primary,
         },
@@ -197,7 +209,7 @@ export default {
           y: this.y2,
           type: 'scatter',
           mode: 'lines',
-          name: this.y2label,
+          name: this.y2Label,
           marker: {
             color: this.colors.orange,
           },
@@ -217,12 +229,12 @@ export default {
         },
         yaxis: {
           // title: 'Something',
-          tickprefix: '$',
+          tickprefix: this.y1Prefix,
           hoverformat: ',.4f',
         },
         yaxis2: {
           // title: 'Something',
-          tickprefix: '$',
+          tickprefix: this.y2Prefix,
           // hoverformat: ',.0f',
           overlaying: 'y',
           side: 'right',

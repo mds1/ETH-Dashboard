@@ -85,6 +85,11 @@ import DshCoinGeckoPriceHistoryEth from 'components/DshCoinGeckoPriceHistoryEth'
 import DshCoinGeckoPriceHistoryMkr from 'components/DshCoinGeckoPriceHistoryMkr';
 import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsdc';
 
+import DshGlassnodeTotalAddresses from 'components/DshGlassnodeTotalAddresses';
+import DshGlassnodeActiveAddresses from 'components/DshGlassnodeActiveAddresses';
+import DshGlassnodeNewAddresses from 'components/DshGlassnodeNewAddresses';
+import DshGlassnodeNonzeroAddresses from 'components/DshGlassnodeNonzeroAddresses';
+import DshGlassnodeSendReceiveAddresses from 'components/DshGlassnodeSendReceiveAddresses';
 
 export default {
   name: 'Home',
@@ -142,6 +147,12 @@ export default {
     DshCoinGeckoPriceHistoryEth,
     DshCoinGeckoPriceHistoryMkr,
     DshCoinGeckoPriceHistoryUsdc,
+    // Glassnode Address Stats
+    DshGlassnodeTotalAddresses,
+    DshGlassnodeActiveAddresses,
+    DshGlassnodeNewAddresses,
+    DshGlassnodeNonzeroAddresses,
+    DshGlassnodeSendReceiveAddresses,
   },
 
   data() {

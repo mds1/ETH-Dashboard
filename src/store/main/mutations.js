@@ -23,6 +23,15 @@ export function setData(state, data) {
   }
 }
 
+export function setServerData(state, data) {
+  state.data.addresses.totalAddresses = data.totalAddresses;
+  state.data.addresses.activeAddresses = data.activeAddresses;
+  state.data.addresses.sendingAddresses = data.sendingAddresses;
+  state.data.addresses.receivingAddresses = data.receivingAddresses;
+  state.data.addresses.newAddresses = data.newAddresses;
+  state.data.addresses.nonZeroAddresses = data.nonZeroAddresses;
+}
+
 /**
  * @param {*} data Object containing `token` and `prices` fields
  *   `token` must be the lowercase abbreviate, e.g. eth or mkr
@@ -38,4 +47,8 @@ export function setTokenPriceHistory(state, data) {
   } catch {
     state.data.tokenPriceHistory[tokenName] = prices;
   }
+}
+
+export function setAddressField(state, data) {
+  state.data.addresses[data.fieldname] = data.values;
 }

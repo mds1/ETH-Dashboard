@@ -14,6 +14,7 @@ module.exports = {
     defiPulse: 'DeFi Pulse API',
     egsApi: 'ETH Gas Station API',
     etherscan: 'Etherscan API',
+    glassnode: 'Glassnode API',
     maker: 'Maker contracts',
     poolTogether: 'PoolTogether contracts',
   },

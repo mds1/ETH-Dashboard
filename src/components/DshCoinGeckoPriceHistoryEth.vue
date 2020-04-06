@@ -1,11 +1,12 @@
 <template>
   <div class="full-height">
-    <time-series-plot
+    <time-series-plot-price-history
       :days="days"
       :source="source"
       :title="title"
       :token-symbol="tokenSymbol"
-      :y1label="y1label"
+      :y1-label="y1Label"
+      y1-prefix="$"
       @newDateRange="updateDays"
     />
   </div>
@@ -15,13 +16,13 @@
 import { mapState } from 'vuex';
 import mixinHelpers from 'src/utils/mixinHelpers';
 import { categories, sources } from 'src/utils/metadata';
-import TimeSeriesPlot from 'components/templates/TimeSeriesPlot';
+import TimeSeriesPlotPriceHistory from 'components/templates/TimeSeriesPlotPriceHistory';
 
 export default {
   name: 'DshCoinGeckoPriceHistoryEth',
 
   components: {
-    TimeSeriesPlot,
+    TimeSeriesPlotPriceHistory,
   },
 
   mixins: [mixinHelpers],
@@ -38,7 +39,7 @@ export default {
       coin: 'ethereum',
       days: undefined,
       tokenSymbol: 'ETH',
-      y1label: 'ETH price',
+      y1Label: 'ETH price',
     };
   },
 

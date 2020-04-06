@@ -57,6 +57,12 @@ import DshCoinGeckoPriceHistoryEth from 'components/DshCoinGeckoPriceHistoryEth'
 import DshCoinGeckoPriceHistoryMkr from 'components/DshCoinGeckoPriceHistoryMkr';
 import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsdc';
 
+import DshGlassnodeTotalAddresses from 'components/DshGlassnodeTotalAddresses';
+import DshGlassnodeActiveAddresses from 'components/DshGlassnodeActiveAddresses';
+import DshGlassnodeNewAddresses from 'components/DshGlassnodeNewAddresses';
+import DshGlassnodeNonzeroAddresses from 'components/DshGlassnodeNonzeroAddresses';
+import DshGlassnodeSendReceiveAddresses from 'components/DshGlassnodeSendReceiveAddresses';
+
 export default {
   name: 'App',
 
@@ -116,6 +122,12 @@ export default {
     DshCoinGeckoPriceHistoryEth,
     DshCoinGeckoPriceHistoryMkr,
     DshCoinGeckoPriceHistoryUsdc,
+    // Glassnode Address Stats
+    DshGlassnodeTotalAddresses,
+    DshGlassnodeActiveAddresses,
+    DshGlassnodeNewAddresses,
+    DshGlassnodeNonzeroAddresses,
+    DshGlassnodeSendReceiveAddresses,
   },
 
   computed: {
@@ -153,12 +165,19 @@ export default {
       });
     }
 
-    // Update data on every new block
+    // Update data fetched on frontend on every new block
     this.$store.dispatch('main/pollSlow');
     this.provider.on('block', () => this.$store.dispatch('main/poll'));
     setInterval(() => {
       this.$store.dispatch('main/pollSlow');
     }, 30 * 60 * 1000); // every 30 minutes
+
+    // Listen for updates from server data
+    this.$firestore.collection('data').doc('hourly')
+      .onSnapshot((doc) => {
+        const data = doc.data();
+        this.$store.commit('main/setServerData', data);
+      });
   },
 };
 </script>
