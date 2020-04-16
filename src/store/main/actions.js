@@ -263,6 +263,7 @@ const cUSDC = createContractInstance(addresses.cUSDC, 'cUSDC');
 // const cZRX = createContractInstance(addresses.cZRX, 'cZRX');
 
 const poolDai = createContractInstance(addresses.POOL_DAI, 'PoolDai');
+// const hegic = createContractInstance(addresses.HEGIC, 'Hegic');
 
 // Actions start here ==============================================================================
 export function setProvider({ commit }, providerUsed) {
@@ -349,6 +350,9 @@ export async function poll({ commit }, slowPollData = undefined) {
     [addresses.POOL_DAI, poolDai.interface.functions.accountedBalance.encode([])], // funds allocated to winners, etc.
     [addresses.POOL_DAI, poolDai.interface.functions.committedSupply.encode([])], // eligible tickets
     [addresses.POOL_DAI, poolDai.interface.functions.openSupply.encode([])], // open tickets
+    // // Hegic
+    // [addresses.HEGIC, hegic.interface.functions.availableBalance.encode([])],
+    // [addresses.HEGIC, hegic.interface.functions.totalBalance.encode([])],
   ]);
 
 
@@ -445,6 +449,14 @@ export async function poll({ commit }, slowPollData = undefined) {
   const poolDaiAccountedBalance = poolDai.interface.functions.accountedBalance.decode(res[62])[0];
   const poolDaiEligibleTickets = poolDai.interface.functions.committedSupply.decode(res[63])[0];
   const poolDaiOpenTickets = poolDai.interface.functions.openSupply.decode(res[64])[0];
+
+  // // Hegic
+  // const hegicAvailableBalance = hegic.interface.functions.availableBalance.decode(res[65])[0];
+  // const hegicTotalBalance = (hegic.interface.functions.totalBalance.decode(res[66])[0]).div('10');
+  // const hegicDaiAvailableForOptions = utils.formatEther(hegicAvailableBalance.sub(hegicTotalBalance));
+  // console.log('hegicAvailableBalance: ', hegicAvailableBalance);
+  // console.log('hegicTotalBalance: ', hegicTotalBalance);
+  // console.log('hegicDaiAvailableForOptions: ', hegicDaiAvailableForOptions);
 
   // Formatting for store ==========================================================================
   const compoundStats = {
