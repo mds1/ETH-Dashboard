@@ -60,8 +60,8 @@ import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsd
 import DshGlassnodeTotalAddresses from 'components/DshGlassnodeTotalAddresses';
 import DshGlassnodeActiveAddresses from 'components/DshGlassnodeActiveAddresses';
 import DshGlassnodeNewAddresses from 'components/DshGlassnodeNewAddresses';
-import DshGlassnodeNonzeroAddresses from 'components/DshGlassnodeNonzeroAddresses';
 import DshGlassnodeSendReceiveAddresses from 'components/DshGlassnodeSendReceiveAddresses';
+import DshGlassnodeBalanceAboveXAddresses from 'components/DshGlassnodeBalanceAboveXAddresses';
 
 export default {
   name: 'App',
@@ -126,8 +126,8 @@ export default {
     DshGlassnodeTotalAddresses,
     DshGlassnodeActiveAddresses,
     DshGlassnodeNewAddresses,
-    DshGlassnodeNonzeroAddresses,
     DshGlassnodeSendReceiveAddresses,
+    DshGlassnodeBalanceAboveXAddresses,
   },
 
   computed: {
@@ -174,10 +174,9 @@ export default {
 
     // Listen for updates from server data
     this.$firestore.collection('data').doc('hourly')
-      .onSnapshot((doc) => {
-        const data = doc.data();
-        this.$store.commit('main/setServerData', data);
-      });
+      .onSnapshot((doc) => { this.$store.commit('main/setServerData', doc.data()); });
+    this.$firestore.collection('data').doc('hourly01')
+      .onSnapshot((doc) => { this.$store.commit('main/setServerData', doc.data()); });
   },
 };
 </script>

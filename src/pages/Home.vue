@@ -88,8 +88,8 @@ import DshCoinGeckoPriceHistoryUsdc from 'components/DshCoinGeckoPriceHistoryUsd
 import DshGlassnodeTotalAddresses from 'components/DshGlassnodeTotalAddresses';
 import DshGlassnodeActiveAddresses from 'components/DshGlassnodeActiveAddresses';
 import DshGlassnodeNewAddresses from 'components/DshGlassnodeNewAddresses';
-import DshGlassnodeNonzeroAddresses from 'components/DshGlassnodeNonzeroAddresses';
 import DshGlassnodeSendReceiveAddresses from 'components/DshGlassnodeSendReceiveAddresses';
+import DshGlassnodeBalanceAboveXAddresses from 'components/DshGlassnodeBalanceAboveXAddresses';
 
 export default {
   name: 'Home',
@@ -151,8 +151,8 @@ export default {
     DshGlassnodeTotalAddresses,
     DshGlassnodeActiveAddresses,
     DshGlassnodeNewAddresses,
-    DshGlassnodeNonzeroAddresses,
     DshGlassnodeSendReceiveAddresses,
+    DshGlassnodeBalanceAboveXAddresses,
   },
 
   data() {

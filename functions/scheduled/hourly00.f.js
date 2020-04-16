@@ -61,6 +61,34 @@ module.exports = functions.pubsub
     const p6 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/non_zero_count?`, {
       params: { a: 'ETH', api_key: glassnodeApiKey },
     });
+    // Number of unique addresses holding at least 0.01 coins.
+    const p7 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_point_zero_1_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 0.1 coins.
+    const p8 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_point_1_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 1 coins.
+    const p9 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_1_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 10 coins.
+    const p10 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_10_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 100 coins.
+    const p11 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_100_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 1k coins.
+    const p12 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_1k_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
+    // Number of unique addresses holding at least 10k coins.
+    const p13 = axios.get(`${glassnodeUrl}/v1/metrics/addresses/min_10k_count?`, {
+      params: { a: 'ETH', api_key: glassnodeApiKey },
+    });
 
     // Send requests
     console.log('Sending requests...');
@@ -71,11 +99,32 @@ module.exports = functions.pubsub
       resReceivingAddresses,
       resNewAddresses,
       resNonZeroAddresses,
-    ] = await Promise.all([p1, p2, p3, p4, p5, p6]);
+      resPointZero1Addresses,
+      resPoint1Addresses,
+      res1Addresses,
+      res10Addresses,
+      res100Addresses,
+      res1kAddresses,
+      res10kAddresses,
+    ] = await Promise.all([
+      p1,
+      p2,
+      p3,
+      p4,
+      p5,
+      p6,
+      p7,
+      p8,
+      p9,
+      p10,
+      p11,
+      p12,
+      p13,
+    ]);
 
     // Format data
     console.log('Parsing responses...');
-    const data = {
+    const data1 = {
       totalAddresses: resTotalAddresses.data,
       activeAddresses: resActiveAddresses.data,
       sendingAddresses: resSendingAddresses.data,
@@ -83,10 +132,21 @@ module.exports = functions.pubsub
       newAddresses: resNewAddresses.data,
       nonZeroAddresses: resNonZeroAddresses.data,
     };
+    const data2 = {
+      pointZero1Addresses: resPointZero1Addresses.data,
+      point1Addresses: resPoint1Addresses.data,
+      _1Addresses: res1Addresses.data,
+      _10Addresses: res10Addresses.data,
+      _100Addresses: res100Addresses.data,
+      _1kAddresses: res1kAddresses.data,
+      _10kAddresses: res10kAddresses.data,
+    };
 
-    // Save data
+    // Save data (we use multiple documents because otherwise this exceeds
+    // the 1 MB size limit for documents)
     console.log('Saving data to database...');
-    await firestore.collection('data').doc('hourly').set(data);
+    await firestore.collection('data').doc('hourly').set(data1);
+    await firestore.collection('data').doc('hourly01').set(data2);
     console.log('Done!');
     return null;
   });

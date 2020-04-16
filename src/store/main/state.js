@@ -71,6 +71,13 @@ export default function () {
         receivingAddresses: [],
         newAddresses: [],
         nonZeroAddresses: [],
+        pointZero1Addresses: [],
+        point1Addresses: [],
+        _1Addresses: [],
+        _10Addresses: [],
+        _100Addresses: [],
+        _1kAddresses: [],
+        _10kAddresses: [],
       },
     },
   };
