@@ -232,7 +232,7 @@ export default {
           // title: 'Something',
           tickprefix: this.y1Prefix,
           hoverformat: '0.2f',
-          ticksuffix: '%',
+          // ticksuffix: '%',
         },
         legend: {
           x: 0,
