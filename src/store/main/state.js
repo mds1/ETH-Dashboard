@@ -79,6 +79,23 @@ export default function () {
         _1kAddresses: [],
         _10kAddresses: [],
       },
+      glassnode: {
+        contractSupplyDai: [],
+        contractSupplyUsdc: [],
+        contractSupplyUsdt: [],
+        contractSupplyBat: [],
+        contractSupplyMkr: [],
+        balance1PctDai: [],
+        balance1PctUsdc: [],
+        balance1PctUsdt: [],
+        balance1PctBat: [],
+        balance1PctMkr: [],
+        giniDai: [],
+        giniUsdc: [],
+        giniUsdt: [],
+        giniBat: [],
+        giniMkr: [],
+      },
     },
   };
 }

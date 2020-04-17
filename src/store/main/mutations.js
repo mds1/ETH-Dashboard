@@ -49,3 +49,9 @@ export function setServerData(state, data) {
     state.data.addresses[key] = data[key];
   });
 }
+
+export function setGlassnodeData(state, data) {
+  Object.keys(data).forEach((key) => {
+    state.data.glassnode[key] = data[key];
+  });
+}

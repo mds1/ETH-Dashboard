@@ -62,6 +62,9 @@ import DshGlassnodeActiveAddresses from 'components/DshGlassnodeActiveAddresses'
 import DshGlassnodeNewAddresses from 'components/DshGlassnodeNewAddresses';
 import DshGlassnodeSendReceiveAddresses from 'components/DshGlassnodeSendReceiveAddresses';
 import DshGlassnodeBalanceAboveXAddresses from 'components/DshGlassnodeBalanceAboveXAddresses';
+import DshGlassnodeContractSupply from 'components/DshGlassnodeContractSupply';
+import DshGlassnodeBalance1Pct from 'components/DshGlassnodeBalance1Pct';
+import DshGlassnodeGini from 'components/DshGlassnodeGini';
 
 export default {
   name: 'App',
@@ -128,6 +131,9 @@ export default {
     DshGlassnodeNewAddresses,
     DshGlassnodeSendReceiveAddresses,
     DshGlassnodeBalanceAboveXAddresses,
+    DshGlassnodeContractSupply,
+    DshGlassnodeBalance1Pct,
+    DshGlassnodeGini,
   },
 
   computed: {
@@ -177,6 +183,8 @@ export default {
       .onSnapshot((doc) => { this.$store.commit('main/setServerData', doc.data()); });
     this.$firestore.collection('data').doc('hourly01')
       .onSnapshot((doc) => { this.$store.commit('main/setServerData', doc.data()); });
+    this.$firestore.collection('data').doc('hourly02')
+      .onSnapshot((doc) => { this.$store.commit('main/setGlassnodeData', doc.data()); });
   },
 };
 </script>

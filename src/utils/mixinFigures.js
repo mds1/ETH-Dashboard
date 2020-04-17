@@ -81,7 +81,7 @@ export default {
         // configure plot margins
         // values are chosen to prevent axis labels from being cut off
         margin: {
-          l: 40,
+          l: 45,
           r: 18,
           b: 60,
           t: 10,

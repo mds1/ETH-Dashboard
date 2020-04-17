@@ -103,7 +103,7 @@ import mixinHelpers from 'src/utils/mixinHelpers';
 import { categories, sources } from 'src/utils/metadata';
 
 export default {
-  name: 'DshGlassnodeBalanceAboveXAddresses',
+  name: 'DshGlassnodeContractSupply',
 
   mixins: [mixinFigures, mixinHelpers],
 
@@ -111,41 +111,35 @@ export default {
     return {
       // For menu
       category: categories.ethNetwork,
-      title: 'Addresses With Balance of At Least X ETH',
+      title: 'Percent of Token in Contracts',
       // eslint-disable-next-line
-      description: 'The number of unique addresses holding at least X Ether, where X is shown for values of 0, 0.01, 0.1, 1, 10, 100, 1k, and 10k.',
+      description: 'The percent of total supply of various tokens that is held in smart contracts.',
       source: sources.glassnode,
       isFigureOrHistorical: true,
       // For component
       days: 'max',
-      y1Label: 'Addresses Count',
-      divId: 'balanceAboveX',
+      y1Label: 'Percent',
+      divId: 'contractSupply',
     };
   },
 
   computed: {
     ...mapState({
       /* eslint-disable no-underscore-dangle */
-      nonZeroAddresses: (state) => state.main.data.addresses.nonZeroAddresses,
-      pointZero1Addresses: (state) => state.main.data.addresses.pointZero1Addresses,
-      point1Addresses: (state) => state.main.data.addresses.point1Addresses,
-      _1Addresses: (state) => state.main.data.addresses._1Addresses,
-      _10Addresses: (state) => state.main.data.addresses._10Addresses,
-      _100Addresses: (state) => state.main.data.addresses._100Addresses,
-      _1kAddresses: (state) => state.main.data.addresses._1kAddresses,
-      _10kAddresses: (state) => state.main.data.addresses._10kAddresses,
+      contractSupplyDai: (state) => state.main.data.glassnode.contractSupplyDai,
+      contractSupplyUsdc: (state) => state.main.data.glassnode.contractSupplyUsdc,
+      contractSupplyUsdt: (state) => state.main.data.glassnode.contractSupplyUsdt,
+      contractSupplyBat: (state) => state.main.data.glassnode.contractSupplyBat,
+      contractSupplyMkr: (state) => state.main.data.glassnode.contractSupplyMkr,
     }),
   },
 
   watch: {
-    nonZeroAddresses() { this.generateFigure(); },
-    pointZero1Addresses() { this.generateFigure(); },
-    point1Addresses() { this.generateFigure(); },
-    _1Addresses() { this.generateFigure(); },
-    _10Addresses() { this.generateFigure(); },
-    _100Addresses() { this.generateFigure(); },
-    _1kAddresses() { this.generateFigure(); },
-    _10kAddresses() { this.generateFigure(); },
+    contractSupplyDai() { this.generateFigure(); },
+    contractSupplyUsdc() { this.generateFigure(); },
+    contractSupplyUsdt() { this.generateFigure(); },
+    contractSupplyBat() { this.generateFigure(); },
+    contractSupplyMkr() { this.generateFigure(); },
   },
 
   mounted() {
@@ -166,7 +160,7 @@ export default {
         let map;
         // Filter
         if (isSec) map = array.map((item) => item[key] * 1000);
-        else map = array.map((item) => item[key]);
+        else map = array.map((item) => 100 * item[key]);
         // Get values
         if (days === 'max') return map;
         days += 1;
@@ -174,83 +168,53 @@ export default {
         return vals;
       };
       const trace1 = {
-        x: mapAndFilter(this.nonZeroAddresses, 't', this.days, true),
-        y: mapAndFilter(this.nonZeroAddresses, 'v', this.days, false),
+        x: mapAndFilter(this.contractSupplyDai, 't', this.days, true),
+        y: mapAndFilter(this.contractSupplyDai, 'v', this.days, false),
         type: 'scatter',
         mode: 'lines',
-        name: '> 0 ETH',
+        name: 'DAI',
         marker: {
           color: this.colors.primary,
         },
       };
       const trace2 = {
-        x: mapAndFilter(this.pointZero1Addresses, 't', this.days, true),
-        y: mapAndFilter(this.pointZero1Addresses, 'v', this.days, false),
+        x: mapAndFilter(this.contractSupplyUsdc, 't', this.days, true),
+        y: mapAndFilter(this.contractSupplyUsdc, 'v', this.days, false),
         type: 'scatter',
         mode: 'lines',
-        name: '≥ 0.01 ETH',
+        name: 'USDC',
         marker: {
           color: this.colors.orange,
         },
       };
       const trace3 = {
-        x: mapAndFilter(this.point1Addresses, 't', this.days, true),
-        y: mapAndFilter(this.point1Addresses, 'v', this.days, false),
+        x: mapAndFilter(this.contractSupplyUsdt, 't', this.days, true),
+        y: mapAndFilter(this.contractSupplyUsdt, 'v', this.days, false),
         type: 'scatter',
         mode: 'lines',
-        name: '≥ 0.1 ETH',
+        name: 'USDT',
         marker: {
           color: this.colors.green,
         },
       };
       const trace4 = {
-        x: mapAndFilter(this._1Addresses, 't', this.days, true),
-        y: mapAndFilter(this._1Addresses, 'v', this.days, false),
+        x: mapAndFilter(this.contractSupplyMkr, 't', this.days, true),
+        y: mapAndFilter(this.contractSupplyMkr, 'v', this.days, false),
         type: 'scatter',
         mode: 'lines',
-        name: '≥ 1 ETH',
+        name: 'MKR',
         marker: {
           color: this.colors.red,
         },
       };
       const trace5 = {
-        x: mapAndFilter(this._10Addresses, 't', this.days, true),
-        y: mapAndFilter(this._10Addresses, 'v', this.days, false),
+        x: mapAndFilter(this.contractSupplyBat, 't', this.days, true),
+        y: mapAndFilter(this.contractSupplyBat, 'v', this.days, false),
         type: 'scatter',
         mode: 'lines',
-        name: '≥ 10 ETH',
+        name: 'BAT',
         marker: {
           color: this.colors.purple,
-        },
-      };
-      const trace6 = {
-        x: mapAndFilter(this._100Addresses, 't', this.days, true),
-        y: mapAndFilter(this._100Addresses, 'v', this.days, false),
-        type: 'scatter',
-        mode: 'lines',
-        name: '≥ 100 ETH',
-        marker: {
-          color: this.colors.brown,
-        },
-      };
-      const trace7 = {
-        x: mapAndFilter(this._1kAddresses, 't', this.days, true),
-        y: mapAndFilter(this._1kAddresses, 'v', this.days, false),
-        type: 'scatter',
-        mode: 'lines',
-        name: '≥ 1k ETH',
-        marker: {
-          color: this.colors.pink,
-        },
-      };
-      const trace8 = {
-        x: mapAndFilter(this._10kAddresses, 't', this.days, true),
-        y: mapAndFilter(this._10kAddresses, 'v', this.days, false),
-        type: 'scatter',
-        mode: 'lines',
-        name: '≥ 10k ETH',
-        marker: {
-          color: this.colors.grey,
         },
       };
 
@@ -267,7 +231,8 @@ export default {
         yaxis: {
           // title: 'Something',
           tickprefix: this.y1Prefix,
-          hoverformat: this.hoverformat,
+          hoverformat: '0.2f',
+          ticksuffix: '%',
         },
         legend: {
           x: 0,
@@ -282,7 +247,7 @@ export default {
         },
       };
 
-      const data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8];
+      const data = [trace1, trace2, trace3, trace4, trace5];
       const { finalData, finalLayout } = this.prepareLinePlot(data, layout);
       this.$Plotly.newPlot(`${this.divId}`, finalData, finalLayout, { responsive: true });
     },
