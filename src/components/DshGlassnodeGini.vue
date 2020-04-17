@@ -231,7 +231,7 @@ export default {
         yaxis: {
           // title: 'Something',
           tickprefix: this.y1Prefix,
-          hoverformat: '0.2f',
+          hoverformat: '0.3f',
           // ticksuffix: '%',
         },
         legend: {
