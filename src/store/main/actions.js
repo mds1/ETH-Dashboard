@@ -612,20 +612,31 @@ export async function poll({ commit }, slowPollData = undefined) {
  */
 export async function pollSlow({ commit }) {
   console.log('Executing slow poll for latest data...'); // eslint-disable-line no-console
-  const p1 = getDefiPulseData();
-  const p2 = await getCurveData('compound');
-  const p3 = await getCurveData('usdt');
-  const p4 = await getCurveData('y');
-  const p5 = await getCurveData('busd');
-  const [defiPulse, curveCompound, curveUsdt, curveY, curveBusd] = await Promise.all([p1, p2, p3, p4, p5]);
+  const p1 = await getCurveData('compound');
+  const p2 = await getCurveData('usdt');
+  const p3 = await getCurveData('y');
+  const p4 = await getCurveData('busd');
+  const [curveCompound, curveUsdt, curveY, curveBusd] = await Promise.all([p1, p2, p3, p4]);
   const data = {
-    defiPulse,
     curve: {
       compound: curveCompound,
       usdt: curveUsdt,
       ytoken: curveY,
       busd: curveBusd,
     },
+  };
+  poll({ commit }, data);
+}
+
+/**
+ * @notice Poll once per day
+ */
+export async function pollDaily({ commit }) {
+  console.log('Executing daily poll for latest data...'); // eslint-disable-line no-console
+  const p1 = getDefiPulseData();
+  const [defiPulse] = await Promise.all([p1]);
+  const data = {
+    defiPulse,
   };
   poll({ commit }, data);
 }

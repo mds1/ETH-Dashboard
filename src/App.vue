@@ -171,12 +171,19 @@ export default {
       });
     }
 
-    // Update data fetched on frontend on every new block
+    // Update data fetched on frontend at regular intervals
     this.$store.dispatch('main/pollSlow');
+    this.$store.dispatch('main/pollDaily');
+
     this.provider.on('block', () => this.$store.dispatch('main/poll'));
+
     setInterval(() => {
       this.$store.dispatch('main/pollSlow');
     }, 30 * 60 * 1000); // every 30 minutes
+
+    setInterval(() => {
+      this.$store.dispatch('main/pollDaily');
+    }, 24 * 60 * 60 * 1000); // every day
 
     // Listen for updates from server data
     this.$firestore.collection('data').doc('hourly')
